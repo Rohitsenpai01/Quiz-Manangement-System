@@ -26,13 +26,10 @@ public class MainMenu {
 				as.adminLoginService(sc);
 				break;
 			case 2:
-				
+				ss.stuRegisterService(sc);
 				break;
 			case 3:
 				ss.stuLoginService(sc);
-				break;
-			case 4:
-	
 				break;
 			default:
 				System.out.println("Invalid choice !!!");

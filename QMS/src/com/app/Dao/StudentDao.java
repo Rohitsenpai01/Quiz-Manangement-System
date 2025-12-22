@@ -30,21 +30,20 @@ private Connection con =null;
 		}
 		return false;
 	}
-	public boolean studentLogin(String name ,String email , String pass , String role) throws SQLException {
+	public void studentRegister(String name ,String email , String pass , String role) throws SQLException {
 		String sql = "INSERT INTO USERS(name , email , password_hash , role) VALUES(?,?,?,?)";
-		try (PreparedStatement st= con.prepareStatement(sql)) {
-			st.setString(1, email);
-			st.setString(2, pass);
-			st.setString(3, role);
-			ResultSet rs = st.executeQuery();
-			
-			if (rs.next()) {
-				return true;
-			}
-			rs.close();
-			st.close();
+		try {
+			PreparedStatement pt = con.prepareStatement(sql);
+			pt.setString(1, name);
+			pt.setString(2, email);
+			pt.setString(3, pass);
+			pt.setString(4, role);
+			pt.executeUpdate();
+			pt.close();
+			con.close();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-		return false;
 	}
 	
 	@Override

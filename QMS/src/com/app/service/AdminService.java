@@ -12,7 +12,6 @@ import com.app.util.QuestionFileParser;
 
 public class AdminService {
 	private static AdminMenu edm = new AdminMenu();
-
 	// Admin login
 	public static void adminLoginService(Scanner sc) {
 		String email, pass;
@@ -37,17 +36,16 @@ public class AdminService {
 
 	}
 
+
 	public static void addQuizService(Scanner sc) throws Exception {
-		System.out.println("Enter Quiz Title: ");
-		String title = sc.nextLine();
-		System.out.println("Enter Creator ID: ");
-		int adminId = sc.nextInt();
+		System.out.print("Enter Quiz Title: ");
+		String title = sc.next();
 		System.out.println("Enter Question File Path: ");
-		File file = new File(sc.nextLine());
+		String path = sc.next();
+		File file = new File(path);
 		Quiz quiz = new Quiz();
-		quiz.title = title;
-		quiz.creater_id = adminId;
-		
+		quiz.setTitle(title); 
+		quiz.setCreater_id(5);
 		try (QuizDao quizDao = new QuizDao()) {
 			int quizId = quizDao.insert(quiz);
 			List<Question> list = QuestionFileParser.parse(file);
@@ -57,23 +55,50 @@ public class AdminService {
 							questionDao.insert(q); 	
 						}
 					}
-					System.out.println("Quiz Created Successfully with id=" + quizId);
-		
+					System.out.println("Quiz imported Successfully with id=" + quizId);
 		}
 	}
 	
-
-	public void updateQuizService(Scanner sc) {
-
+	
+	
+	public static void createQuizService(Scanner sc) {
+		System.out.print("Enter Title: ");
+		String title = sc.next();
+		System.out.print("Enter Creator ID: ");
+		int creatorId = sc.nextInt();
+		try (QuizDao qd = new QuizDao()) {
+			qd.createQuiz(title, creatorId);
+			System.out.println("Quiz Created successfully");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
-	public void deleteService(Scanner sc) {
-
+	
+	public static void deleteService(Scanner sc) {		
+		try (QuizDao qd = new QuizDao()) {
+			System.out.print("Enter Quiz ID for Deletion: ");
+			int qId = sc.nextInt();
+			qd.removeQuiz(qId);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	public void listQuizService(Scanner sc) {
-
+	
+	public static void listQuizService() {
+		try (QuizDao qDao = new QuizDao()) {
+			List<Quiz> quizlist = qDao.getQuizList();
+			for(Quiz q : quizlist ) {
+				System.out.print("\nQuiz ID: " + q.getId());
+				System.out.print("\tTitle: " + q.getTitle());
+				System.out.print("\tCreator ID: " + q.getCreater_id());
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	public void veiwScoresService(Scanner sc) {
+	
+	public static void viewScoresService(Scanner sc) {
 
 	}
 

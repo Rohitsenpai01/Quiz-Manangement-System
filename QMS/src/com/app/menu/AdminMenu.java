@@ -7,33 +7,34 @@ import com.app.service.AdminService;
 public class AdminMenu {
 	static AdminService as = new AdminService();
 	public static int menuOption(Scanner sc) {
-		System.out.println("\n1.Create Quiz.");
-		System.out.println("2.Update quiz .");
-		System.out.println("3.Delete quiz .");
-		System.out.println("4.List quiz .");
-		System.out.println("5.View Scores .");
-		System.out.println("6.Logout ..");
+		System.out.println("\n1.Add Quiz.");
+		System.out.println("2.Create quiz .");
+		System.out.println("3.Update quiz .");
+		System.out.println("4.Delete quiz .");
+		System.out.println("5.List quiz .");
+		System.out.println("6.View Scores .");
+		System.out.println("7.Logout ..");
 		return sc.nextInt();
 	}
 	
 	public static void adminMenu(Scanner sc) throws Exception {
 		int choice = 0;
-		while ((choice = menuOption(sc))!=6) {
+		while ((choice = menuOption(sc))!=7) {
 			switch (choice) {
 			case 1:
 				AdminService.addQuizService(sc);
 				break;
 			case 2:
-				as.updateQuizService(sc);
+				AdminService.createQuizService(sc);
 				break;
 			case 3:
-				as.deleteService(sc);
+				AdminService.deleteService(sc);
 				break;
 			case 4:
-				as.listQuizService(sc);
+				AdminService.listQuizService();
 				break;
 			case 5:
-				as.veiwScoresService(sc);
+				//AdminService.viewScoresService();
 				break;
 			case 6:
 				System.out.println("Admin Logged Out");

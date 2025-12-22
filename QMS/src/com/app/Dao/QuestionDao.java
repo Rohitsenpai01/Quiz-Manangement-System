@@ -17,7 +17,7 @@ public class QuestionDao implements AutoCloseable{
 		con = DbUtil.getConnection();
 	}
 	
-	public List<Question> getAllStudentModels() throws SQLException {
+	public List<Question> getAllQuestions() throws SQLException {
 		List<Question> queList = new ArrayList<>();
 		String sql = "SELECT question_id, quiz_id, text, a, b, c, d FROM questions";
 		try (PreparedStatement selectStatement = con.prepareStatement(sql)) {
@@ -25,11 +25,12 @@ public class QuestionDao implements AutoCloseable{
 			while (rs.next()) {
 				Question que = new Question();
 				que.setId(rs.getInt(1));
-				que.setText(rs.getString(2));
-				que.setA(rs.getString(3));
-				que.setB(rs.getString(4));
-				que.setC(rs.getString(5));
-				que.setD(rs.getString(6));
+				que.setQuiz_id(rs.getInt(2));
+				que.setText(rs.getString(3));
+				que.setA(rs.getString(4));
+				que.setB(rs.getString(5));
+				que.setC(rs.getString(6));
+				que.setD(rs.getString(7));
 				queList.add(que);
 			}
 		}
@@ -40,11 +41,12 @@ public class QuestionDao implements AutoCloseable{
 		String sql = "INSERT INTO questions " + "(quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option)" + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, q.quiz_id);
-			ps.setString(2, q.text);
+			ps.setString(2,q.text);
 			ps.setString(3,q.a);
-			ps.setString(3,q.b);
-			ps.setString(3,q.c);
-			ps.setString(3,q.d);
+			ps.setString(4,q.b);
+			ps.setString(5,q.c);
+			ps.setString(6,q.d);
+			ps.setString(7, String.valueOf(q.getCorrect()));
 			ps.executeUpdate();
 		}
 	}
