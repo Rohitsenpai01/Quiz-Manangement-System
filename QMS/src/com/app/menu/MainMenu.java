@@ -9,12 +9,12 @@ public class MainMenu {
 	public static AdminService as = new AdminService();
 	public static StudentService ss = new StudentService();
 	public static int menuOption(Scanner sc) {
-		System.out.println("\n\n==========================");
+		System.out.println("\n=======MAIN_MENU========");
 		System.out.println("1.Admin Login");
 		System.out.println("2.Student Registration");
 		System.out.println("3.Student Login");
-		System.out.println("4.Exit...");
-		System.out.println("==========================");
+		System.out.println("4.Exit");
+		System.out.print("Enter Your Choice: ");
 		return sc.nextInt();
 	}
 	

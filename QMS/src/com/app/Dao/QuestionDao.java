@@ -19,7 +19,7 @@ public class QuestionDao implements AutoCloseable{
 	
 	public List<Question> getAllQuestions() throws SQLException {
 		List<Question> queList = new ArrayList<>();
-		String sql = "SELECT question_id, quiz_id, text, a, b, c, d FROM questions";
+		String sql = "SELECT question_id, quiz_id, question_text, option_a, option_b, option_c, option_d FROM questions";
 		try (PreparedStatement selectStatement = con.prepareStatement(sql)) {
 			ResultSet rs = selectStatement.executeQuery();
 			while (rs.next()) {
@@ -33,6 +33,29 @@ public class QuestionDao implements AutoCloseable{
 				que.setD(rs.getString(7));
 				queList.add(que);
 			}
+		}
+		return queList;
+	}
+	
+	public List<Question> getQuestion(int qid) throws SQLException{
+		List<Question> queList = new ArrayList<>();
+		String sql = "SELECT question_text, option_a, option_b, option_c, option_d, correct_option FROM questions WHERE quiz_id = ?";
+		try(PreparedStatement pt = con.prepareStatement(sql)){
+			pt.setInt(1, qid);
+			ResultSet rs = pt.executeQuery();
+			while(rs.next()) {
+				Question q = new Question();
+				q.setText(rs.getString(1));
+				q.setA(rs.getString(2));
+				q.setB(rs.getString(3));
+				q.setC(rs.getString(4));
+				q.setD(rs.getString(5));
+				String cop = rs.getString(6);
+				q.setCorrect(cop.charAt(0));
+				queList.add(q);
+			} 
+			rs.close();
+			pt.close();
 		}
 		return queList;
 	}

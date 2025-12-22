@@ -4,11 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 import com.app.entity.*;
 import com.app.util.DbUtil;
 
@@ -58,9 +55,8 @@ private Connection con = null;
 			ps.setString(1, q.getTitle());
 			ps.setInt(2, q.getCreater_id());
 			ps.executeUpdate();
-			
 		}
-		return 5;
+		return AdminDao.adId;
 	}
 	
 	//AUTOCLOSEABLE

@@ -34,7 +34,7 @@ public class QuestionFileParser {
                 if(ch=='D')d=val;
             }
             else if(line.startsWith("ANSWER: ")){
-                ans=line.charAt(7);
+                ans=line.charAt(8);
             }
         }
         br.close();

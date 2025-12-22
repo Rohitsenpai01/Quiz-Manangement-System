@@ -14,6 +14,8 @@ import com.app.util.DbUtil;
 public class AdminDao implements AutoCloseable{
 	private Connection con =null;
 	
+	public static int adId;
+	
 	public AdminDao() throws SQLException{
 		con = DbUtil.getConnection();
 	}
@@ -26,6 +28,7 @@ public class AdminDao implements AutoCloseable{
 			st.setString(3, role);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
+				adId = rs.getInt(1);
 				return true;
 			}
 			rs.close();
@@ -51,11 +54,6 @@ public class AdminDao implements AutoCloseable{
 		return adminList;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public int getID(List<User> adminList) {
-		int aid = ((List<User>) adminList).indexOf(new User());
-		return aid;
-	}
 	@Override
 	public void close() throws Exception {
 		if(con ==null) {

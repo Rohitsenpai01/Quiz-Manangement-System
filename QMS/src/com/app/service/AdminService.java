@@ -2,6 +2,9 @@ package com.app.service;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,8 +39,7 @@ public class AdminService {
 
 	}
 
-
-	public static void addQuizService(Scanner sc) throws Exception {
+	public static void addQuizService(Scanner sc, Integer adId) throws Exception {
 		System.out.print("Enter Quiz Title: ");
 		String title = sc.next();
 		System.out.println("Enter Question File Path: ");
@@ -45,7 +47,7 @@ public class AdminService {
 		File file = new File(path);
 		Quiz quiz = new Quiz();
 		quiz.setTitle(title); 
-		quiz.setCreater_id(5);
+		quiz.setCreater_id(adId);
 		try (QuizDao quizDao = new QuizDao()) {
 			int quizId = quizDao.insert(quiz);
 			List<Question> list = QuestionFileParser.parse(file);
@@ -57,9 +59,7 @@ public class AdminService {
 					}
 					System.out.println("Quiz imported Successfully with id=" + quizId);
 		}
-	}
-	
-	
+	}	
 	
 	public static void createQuizService(Scanner sc) {
 		System.out.print("Enter Title: ");
@@ -79,7 +79,6 @@ public class AdminService {
 			System.out.print("Enter Quiz ID for Deletion: ");
 			int qId = sc.nextInt();
 			qd.removeQuiz(qId);
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -98,8 +97,19 @@ public class AdminService {
 		}
 	}
 	
-	public static void viewScoresService(Scanner sc) {
-
+	public static void viewScoresService() {
+		try(AttemptDao adt = new AttemptDao()){
+			List<Attempts> atList = adt.displayScore();
+			for(Attempts a : atList) {
+				System.out.print("\nAttempt ID: "+a.getId());
+				System.out.print("\tQuiz ID: "+a.getQuiz_id());
+				System.out.print("\tStudent ID: "+a.getStudent_id());
+				System.out.print("\tScore: "+a.getScore());
+				System.out.print("\tTotal Question: "+a.getTotal());
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

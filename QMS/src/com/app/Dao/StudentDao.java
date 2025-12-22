@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import com.app.util.DbUtil;
 
 public class StudentDao implements AutoCloseable {
-private Connection con =null;
+	private Connection con =null;
+	
+	public static int stuId;
 	
 	public StudentDao() throws SQLException{
 		con = DbUtil.getConnection();
@@ -23,6 +25,7 @@ private Connection con =null;
 			ResultSet rs = st.executeQuery();
 			
 			if (rs.next()) {
+				stuId = rs.getInt(1);
 				return true;
 			}
 			rs.close();
