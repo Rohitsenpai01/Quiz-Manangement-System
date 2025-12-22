@@ -1,78 +1,67 @@
 package com.app.service;
 
-import java.io.File;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.app.Dao.AdminDao;
-import com.app.entity.Question;
-import com.app.entity.Quiz;
-import com.app.menu.AdminMenu;
+import com.app.dao.QuestionsDao;
+import com.app.dao.QuizDao;
+import com.app.model.Quiz;
+import com.app.dao.*;
 
 public class AdminService {
-	private static AdminMenu edm = new AdminMenu();
-
-	// Admin login
-	public void adminLoginService(Scanner sc) {
-		String email, pass;
-		System.out.print("Enter email -");
-		email = sc.next();
-		System.out.print("Enter pass -");
-		pass = sc.next();
-		String role ="Admin";
-		try (AdminDao ed = new AdminDao()) {
-			if (ed.adminLogin(email, pass , role)) {
-				System.out.print("Login Successfull...");
-				edm.adminMenu(sc);
-			} else {
-				System.out.println("Login failed !");
-
-			}
-		} catch (SQLException e) {
+	public static void createQuiz(Scanner sc) {
+		System.out.println("Enter the quiz name: ");
+		String quizName = sc.next();
+		System.out.println("Enter the creatir id: ");
+		int creator_id = sc.nextInt();
+		try {
+			QuizDao qd = new QuizDao();
+			qd.addQuizTitle(quizName, creator_id);
+			
+		}catch(Exception e) {
 			e.printStackTrace();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		}
+		
+		System.out.println("Enter the path of .txt file(questions): ");
+		String path = sc.next();
+		try {
+			QuestionsDao qs = new QuestionsDao();
+			qs.loadQuestions(quizName,path);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 
 	}
 
-	public void addQuizService(Scanner sc , int adminId) {
-		System.out.println("Enter Quiz Title :");
-		String title = sc.next();
-		System.out.println("Enter File Path:");
-		File file = new File(sc.next());
-		
-		Quiz quiz = new Quiz();
-		quiz.title = title;
-		quiz.creater_id = adminId;
-		
-//		try(AdminDao qd = new AdminDao() ) {
-//			int quizId = qd.insert(quiz);
-//			
-//			List<Question> list = QuestionFileParser.parse(file);
-//			try(QuestionDao qdao = new QuestionDao()){
-//				for(Question q : list) {
-//					q.quiz_id = 
-//				}
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+	public static void displayQuizzes() {
+		System.out.println("==All Available Quizzes==");
+		try {
+			QuizDao quiz = new QuizDao();
+			List<Quiz> quizList = quiz.getQuizList();
+			for(Quiz ls : quizList) {
+				System.out.println(ls);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void updateQuizService(Scanner sc) {
+	public static void viewResult() {
 
 	}
 
-	public void deleteService(Scanner sc) {
-
+	public static void deleteQuiz(Scanner sc) {
+		System.out.println("Enter quiz_id to delete: ");
+		int quiz_id = sc.nextInt();
+		try {
+			QuizDao quiz = new QuizDao();
+			quiz.deleteQuiz(quiz_id);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("Deleted quiz with id: "+ quiz_id);
 	}
-	public void listQuizService(Scanner sc) {
-
-	}
-	public void veiwScoresService(Scanner sc) {
-
-	}
-
 }
