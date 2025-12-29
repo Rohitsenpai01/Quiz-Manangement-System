@@ -1,0 +1,16 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+
+public class QuizDaoImp extends Dao implements QuizDao{
+	private PreparedStatement stmtFindAll;
+	private PreparedStatement stmtFindById;
+	private PreparedStatement stmtSave;
+	private PreparedStatement stmtUpdate;
+	private PreparedStatement stmtDeleteById;
+	
+	public QuizDaoImp() throws Exception {
+		String sqlFindAll = "SELECT quiz_id, title, creator_id FROM quizzes";
+	}
+	
+}
