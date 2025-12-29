@@ -1,0 +1,65 @@
+package com.app.Dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.entity.Question;
+import com.app.util.DbUtil;
+
+public class AttemptDao implements AutoCloseable{
+	public Connection con = null;
+
+	public AttemptDao() throws SQLException{
+		con = DbUtil.getConnection();
+	}
+
+	public List<Question> getQuestion(int qid) throws SQLException{
+		List<Question> queList = new ArrayList<>();
+		String sql = "SELECT question_text, option_a, option_b, option_c, option_d FROM questions WHERE quiz_id = ?";
+		try(PreparedStatement pt = con.prepareStatement(sql)){
+			pt.setInt(1, qid);
+			ResultSet rs = pt.executeQuery();
+			while(rs.next()) {
+				Question q = new Question();
+				q.setText(rs.getString(1));
+				q.setA(rs.getString(2));
+				q.setA(rs.getString(3));
+				q.setA(rs.getString(4));
+				q.setA(rs.getString(5));
+				queList.add(q);
+			}
+		}
+		return queList;
+	}
+	/*
+	public List<Question> checkIp(int qid) throws SQLException{
+		List<Question> queList = new ArrayList<>();
+		String sql = "SELECT correct_option FROM questions";
+		try(PreparedStatement pt = con.prepareStatement(sql)){
+			pt.setInt(1, qid);
+			ResultSet rs = pt.executeQuery();
+			while(rs.next()) {
+				Question q = new Question();
+				q.setText(rs.getString(1));
+				q.setA(rs.getString(2));
+				q.setA(rs.getString(3));
+				q.setA(rs.getString(4));
+				q.setA(rs.getString(5));
+				queList.add(q);
+			}
+		}
+		return queList;
+	}
+	*/
+	
+	public void close() throws SQLException {
+		if (con != null) {
+			con.close();
+			con = null;
+		}
+	}
+}
