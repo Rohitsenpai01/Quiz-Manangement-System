@@ -24,7 +24,7 @@ DESC quizzes;
 
 CREATE TABLE questions(
     question_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    quiz_id INT , FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id),
+    quiz_id INT , FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id)ON DELETE CASCADE,
     question_text TEXT,
     option_a VARCHAR(500),
     option_b VARCHAR(500),
@@ -38,8 +38,8 @@ DESC questions;
 
 CREATE TABLE quiz_attempts(
     attempt_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    quiz_id INT , FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id),
-    user_id INT , FOREIGN KEY (user_id) REFERENCES users(user_id),
+    quiz_id INT , FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id)ON DELETE CASCADE,
+    user_id INT , FOREIGN KEY (user_id) REFERENCES users(user_id)ON DELETE CASCADE,
     final_score INT,
     total_questions INT,
     created_at TIMESTAMP  default current_timestamp

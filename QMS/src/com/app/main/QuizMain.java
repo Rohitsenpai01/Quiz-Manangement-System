@@ -1,15 +1,15 @@
+
 package com.app.main;
 
 import java.util.Scanner;
 
-import com.app.menu.*;
+import com.app.menu.MainMenu;
 
-public class QuizMain {
+public class Quizmain {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		MainMenu.getMainMenu(sc);
-		sc.close();
+		MainMenu.mainMenu(sc);
 	}
-	
+
 }

@@ -1,18 +1,21 @@
-package com.app.model;
+package com.app.entity;
 
 public class Question {
-	public int id ;
-	public int QuizId;
-	public   String text;
-	public   String a;
-	public   String b;
-	public   String c;
-	public   String d;
+	public int id;
+	public int quiz_id;
+	public String text;
+	public String a;
+	public String b;
+	public String c;
+	public String d;
 	public char correct;
-	public Question(int id, int quizId, String text, String a, String b, String c, String d, char correct) {
-		super();
+
+	public Question() {
+	}
+	
+	public Question(int id, int quiz_id, String text, String a, String b, String c, String d, char correct) {
 		this.id = id;
-		QuizId = quizId;
+		this.quiz_id = quiz_id;
 		this.text = text;
 		this.a = a;
 		this.b = b;
@@ -21,80 +24,74 @@ public class Question {
 		this.correct = correct;
 	}
 	
-	public Question() {
-		
-	}
-
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public int getQuizId() {
-		return QuizId;
+	
+	public int getQuiz_id() {
+		return quiz_id;
 	}
-
-	public void setQuizId(int quizId) {
-		QuizId = quizId;
+	
+	public void setQuiz_id(int quiz_id) {
+		this.quiz_id = quiz_id;
 	}
-
+	
 	public String getText() {
 		return text;
 	}
-
+	
 	public void setText(String text) {
 		this.text = text;
 	}
-
+	
 	public String getA() {
 		return a;
 	}
-
+	
 	public void setA(String a) {
 		this.a = a;
 	}
-
+	
 	public String getB() {
 		return b;
 	}
-
+	
 	public void setB(String b) {
 		this.b = b;
 	}
-
+	
 	public String getC() {
 		return c;
 	}
-
+	
 	public void setC(String c) {
 		this.c = c;
 	}
-
+	
 	public String getD() {
 		return d;
 	}
-
+	
 	public void setD(String d) {
 		this.d = d;
 	}
-
+	
 	public char getCorrect() {
 		return correct;
 	}
-
+	
 	public void setCorrect(char correct) {
 		this.correct = correct;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", QuizId=" + QuizId + ", text=" + text + ", a=" + a + ", b=" + b + ", c=" + c
-				+ ", d=" + d + ", correct=" + correct + "]";
+		return "Question [id=" + id + ", quiz_id=" + quiz_id + ", text=" + text + ", a=" + a + ", b=" + b + ", c="
+				+ c + ", d=" + d + ", correct=" + correct + "]";
 	}
-	
-	
-
 }
+

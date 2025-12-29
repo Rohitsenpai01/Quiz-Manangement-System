@@ -1,30 +1,25 @@
-package com.app.model;
- import java.time.LocalDateTime;
-public class Attempt {
+package com.app.entity;
+
+import java.time.LocalDateTime;
+
+public class Attempts {
 	public int id;
-	public int quizId;
+	public int quiz_id;
 	public int student_id;
 	public int score;
 	public int total;
-	public LocalDateTime attemptTime ;
-	public Attempt(int id, int quizId, int student_id, int score, int total, LocalDateTime attemptTime) {
-		super();
+	public LocalDateTime attemptTime;
+	
+	public Attempts() {
+	}
+	
+	public Attempts(int id, int quiz_id, int student_id, int score, int total, LocalDateTime attemptTime) {
 		this.id = id;
-		this.quizId = quizId;
+		this.quiz_id = quiz_id;
 		this.student_id = student_id;
 		this.score = score;
 		this.total = total;
 		this.attemptTime = attemptTime;
-	}
-	
-	public Attempt() {
-		
-	}
-
-	@Override
-	public String toString() {
-		return "Attempt [id=" + id + ", quizId=" + quizId + ", student_id=" + student_id + ", score=" + score
-				+ ", total=" + total + ", attemptTime=" + attemptTime + "]";
 	}
 
 	public int getId() {
@@ -35,12 +30,12 @@ public class Attempt {
 		this.id = id;
 	}
 
-	public int getQuizId() {
-		return quizId;
+	public int getQuiz_id() {
+		return quiz_id;
 	}
 
-	public void setQuizId(int quizId) {
-		this.quizId = quizId;
+	public void setQuiz_id(int quiz_id) {
+		this.quiz_id = quiz_id;
 	}
 
 	public int getStudent_id() {
@@ -74,7 +69,10 @@ public class Attempt {
 	public void setAttemptTime(LocalDateTime attemptTime) {
 		this.attemptTime = attemptTime;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "AttemptModel [id=" + id + ", quiz_id=" + quiz_id + ", student_id=" + student_id + ", score=" + score
+				+ ", total=" + total + ", attemptTime=" + attemptTime + "]";
+	}
 }

@@ -1,41 +1,40 @@
 package com.app.menu;
 
 import java.util.Scanner;
-import com.app.service.*;
+
+import com.app.service.AdminService;
+import com.app.service.StudentService;
 
 public class MainMenu {
-
-	public static int options(Scanner sc) {
-		System.out.println("====================");
-		System.out.println("1) Admin Login ");
-		System.out.println("2) Student Register");
-		System.out.println("3) Student Login");
-		System.out.println("4) Exit ");
-
-		System.out.print("Enter your choice: ");
+	public static AdminService as = new AdminService();
+	public static StudentService ss = new StudentService();
+	public static int menuOption(Scanner sc) {
+		System.out.println("\n=======MAIN_MENU========");
+		System.out.println("1.Admin Login");
+		System.out.println("2.Student Registration");
+		System.out.println("3.Student Login");
+		System.out.println("4.Exit");
+		System.out.print("Enter Your Choice: ");
 		return sc.nextInt();
 	}
-
-	public static void getMainMenu(Scanner sc) {
-		int choice;
-		while ((choice = options(sc)) != 0) {
+	
+	public static void mainMenu(Scanner sc ) {
+		int choice = 0;
+		while ((choice = menuOption(sc))!=4) {
 			switch (choice) {
 			case 1:
-				AdminMenu.getadminMenu(sc);
+				as.adminLoginService(sc);
 				break;
 			case 2:
-				StudentService.userResistration(sc);
+				ss.stuRegisterService(sc);
 				break;
 			case 3:
-				StudentMenu.getStudentMenu(sc);
-				break;
-			case 4:
-				choice = 0;
+				ss.stuLoginService(sc);
 				break;
 			default:
-				throw new IllegalArgumentException("Unexpected value: " + choice);
+				System.out.println("Invalid choice !!!");
 			}
 		}
 	}
-
+	
 }
