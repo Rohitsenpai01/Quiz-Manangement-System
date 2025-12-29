@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Student Registration</title>
 </head>
 <body bgcolor="${initParam.theme}">
 	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>

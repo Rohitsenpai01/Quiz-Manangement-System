@@ -1,7 +1,6 @@
 package com.app.pojos;
 
 import java.time.LocalDate;
-
 public class User {	
 	private int id;
 	private String name;
@@ -11,6 +10,7 @@ public class User {
 	private String role;
 	public User() {
 	}
+	
 	public User(int id, String name, String email, String password, LocalDate created_at, String role) {
 		this.id = id;
 		this.name = name;
@@ -55,4 +55,5 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
 }

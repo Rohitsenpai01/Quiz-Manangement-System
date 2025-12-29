@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Login</title>
 </head>
 <body bgcolor="${initParam.theme}">
 	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
@@ -17,8 +17,8 @@
 		<c:when test="${empty lp.user}">
 			<div style="text-align: center">
 			<h3>Login Failed</h3>
-			<p>Invalid email or password</p>
-			<button><a href="index.jsp">Login Again</a></button>
+				<p>Invalid email or password</p>
+				<button><a href="index.jsp">Login Again</a></button>
 			</div>
 		</c:when>
 		<c:when test="${lp.user.role == 'Admin'}">
