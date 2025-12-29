@@ -17,7 +17,7 @@ public class UserDaoImp extends Dao implements UserDao{
 		stmtFindByEmail = con.prepareStatement("SELECT * FROM USERS WHERE email=?");
 		stmtFindById = con.prepareStatement("SELECT * FROM USERS WHERE user_id=?");
 		stmtFindAll = con.prepareStatement("SELECT * FROM USERS");
-		stmtSave = con.prepareStatement("INSERT INTO USERS() VALUES ()");
+		stmtSave = con.prepareStatement("INSERT INTO USERS(user_id,name,email,password_hash,role) VALUES (?,?,?,?,?)");
 	}
 
 	public void close() throws Exception {
