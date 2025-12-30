@@ -16,7 +16,7 @@ DESC users;
 CREATE TABLE quizzes(
     quiz_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
-    creator_id INT,
+    creator_id INT, FOREIGN KEY (creator_id) REFERENCES users(user_id),
     created_at TIMESTAMP  default current_timestamp
 );
 
