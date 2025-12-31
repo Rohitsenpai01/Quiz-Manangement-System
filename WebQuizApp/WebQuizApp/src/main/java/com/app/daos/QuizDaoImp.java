@@ -15,7 +15,6 @@ public class QuizDaoImp extends Dao implements QuizDao{
 	private PreparedStatement stmtFindAll;
 	private PreparedStatement stmtFindById;
 	private PreparedStatement stmtDeleteById;
-	private PreparedStatement stmtCreateQuiz;
 	private PreparedStatement stmtInsertQuiz;
 	
 	public QuizDaoImp() throws Exception {
@@ -23,7 +22,6 @@ public class QuizDaoImp extends Dao implements QuizDao{
 		stmtFindById =  con.prepareStatement("SELECT * FROM quizzes WHERE quiz_id = ?");
 		stmtDeleteById = con.prepareStatement("DELETE FROM quizzes WHERE quiz_id = ?");
 		stmtInsertQuiz = con.prepareStatement("INSERT INTO quizzes (title, creator_id) VALUES (?, ?)");
-		stmtCreateQuiz = con.prepareStatement("");
 	}
 
 	public void close() throws Exception {
@@ -31,7 +29,6 @@ public class QuizDaoImp extends Dao implements QuizDao{
 		stmtFindById.close();
 		stmtDeleteById.close();
 		stmtInsertQuiz.close();
-		stmtCreateQuiz.close();
 		super.close();
 	}
 	
@@ -74,17 +71,13 @@ public class QuizDaoImp extends Dao implements QuizDao{
 
 	@Override
 	public int insert(Quiz q) throws Exception {
-	    // Modified to return the auto-generated quiz_id
-	    try (PreparedStatement ps = con.prepareStatement(
-	            "INSERT INTO quizzes (title, creator_id) VALUES (?, ?)", 
-	            java.sql.Statement.RETURN_GENERATED_KEYS)) {
+	    try (PreparedStatement ps = con.prepareStatement("INSERT INTO quizzes (title, creator_id) VALUES (?, ?)",java.sql.Statement.RETURN_GENERATED_KEYS)) {
 	        ps.setString(1, q.getTitle());
 	        ps.setInt(2, q.getCreator_id());
 	        ps.executeUpdate();
-	        
 	        try (ResultSet rs = ps.getGeneratedKeys()) {
 	            if (rs.next()) {
-	                return rs.getInt(1); // Return the new quiz_id
+	                return rs.getInt(1); 
 	            }
 	        }
 	    }
@@ -94,17 +87,12 @@ public class QuizDaoImp extends Dao implements QuizDao{
 	@Override
 	public boolean createQuiz(Quiz q, String path) throws Exception {
 	    File file = new File(path);
-	    // 1. Insert the quiz and get the ID
 	    int generatedId = this.insert(q); 
-	    
 	    if (generatedId != -1) {
-	        // 2. Parse the file into questions
-	        List<Question> list = QuestionFileParser.parse(file);
-	        
-	        // 3. Save questions using the generated ID
+	        List<Question> list = QuestionFileParser.parse(file);	        
 	        try (QuestionDao queDao = new QuestionDaoImp()) {
 	            for (Question qs : list) {
-	                qs.setQuiz_id(generatedId); // Set FK
+	                qs.setQuiz_id(generatedId); 
 	                queDao.insert(qs, q); 
 	            }
 	            return true;

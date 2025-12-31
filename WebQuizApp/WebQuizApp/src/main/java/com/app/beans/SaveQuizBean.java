@@ -38,7 +38,6 @@ public class SaveQuizBean {
 	public void addQuiz() {
 		try(QuizDao quizDao = new QuizDaoImp()) {
 			Quiz q = new Quiz(quizId, title, creator_id);
-			//this.count = quizDao.save(q);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

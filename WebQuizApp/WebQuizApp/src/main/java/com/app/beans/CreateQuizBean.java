@@ -34,14 +34,13 @@ public class CreateQuizBean {
 	public int getCreator_id() {
 		return creator_id;
 	}
-	public void setCreator_id(int creator_id) {
-		this.creator_id = creator_id;
+	public void setCreator_id(int user_id) {
+		this.creator_id = user_id;
 	}
 
-	public boolean createQuiz() {
+	public boolean createQuizz() {
 	    try (QuizDao quizDao = new QuizDaoImp()) {
 	        Quiz quiz = new Quiz(0, title, creator_id);
-	        // Call the DAO method that handles both Quiz and File Parsing
 	        return quizDao.createQuiz(quiz, path);
 	    } catch (Exception e) {
 	        e.printStackTrace();
