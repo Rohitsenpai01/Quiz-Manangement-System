@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Create Quiz</title>
+</head>
+<body bgcolor="${initParam.theme}">
+	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
+	<jsp:useBean id="lp" class="com.app.beans.LoginBean" scope="session"/>
+	<div style="text-align: center;">
+		<h3>Create Quiz</h3>
+		<form method="post" action="addquiz.jsp">
+			Title <input type="text" name="title"><br><br>
+			Path <input type="text" id="file" name="path"><br><br>
+			<input type="hidden" name="user_id" value="${lp.user.id}">
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+</body>
+</html>

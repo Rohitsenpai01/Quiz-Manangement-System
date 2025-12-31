@@ -1,0 +1,30 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.util.List;
+
+import com.app.pojos.Quiz;
+
+public class QuizDaoImp extends Dao implements QuizDao{
+
+	private PreparedStatement stmtFindAll;
+	private PreparedStatement stmtFindById;
+	
+	public QuizDaoImp() throws Exception {
+		stmtFindAll = con.prepareStatement("SELECT * FROM quizzes");
+		stmtFindById =  con.prepareStatement("SELECT * FROM quizzes WHERE quiz_id = ?");
+	}
+
+	@Override
+	public List<Quiz> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Quiz findById(int quiz_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

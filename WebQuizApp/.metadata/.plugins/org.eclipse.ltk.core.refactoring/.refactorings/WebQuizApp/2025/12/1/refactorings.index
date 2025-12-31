@@ -2,3 +2,32 @@
 1766979812714	Rename type 'QuizDao'
 1766984745847	Delete element
 1766984750797	Delete element
+1767066540145	Rename field 'quizId'
+1767068322593	Rename type 'QuestionDao'
+1767068664870	Delete element
+1767068678037	Delete element
+1767074393669	Delete element
+1767075845282	Delete element
+1767076836232	Copy file
+1767077372623	Delete element
+1767088583108	Delete element
+1767088776908	Delete element
+1767088781170	Delete element
+1767088787091	Delete element
+1767088837609	Copy compilation unit
+1767091780955	Rename type 'QuestionBean'
+1767092229732	Rename resource 'questions.jsp'
+1767098542645	Delete element
+1767098844542	Delete element
+1767109938764	Delete element
+1767109943177	Delete element
+1767109948942	Delete element
+1767109953147	Delete element
+1767109963745	Delete element
+1767109973872	Delete element
+1767110800054	Delete element
+1767111016443	Delete element
+1767111021058	Delete element
+1767113098692	Encapsulate field 'count, ...'
+1767115664971	Rename type 'AttemptDao'
+1767119350033	Rename resource 'AttemptDaoImp.jsp'

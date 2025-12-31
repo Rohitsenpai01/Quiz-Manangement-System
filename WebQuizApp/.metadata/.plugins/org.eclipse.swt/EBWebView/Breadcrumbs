@@ -1,43 +1,51 @@
-0:05:30 Tab2 StartNav31 #typed
-0:05:30 Tab2 FinishNav31
-0:05:30 Tab2 PageLoad
-0:06:10 Tab2 StartNav32 #typed
-0:06:10 Tab2 FinishNav32
-0:06:10 Tab2 PageLoad
-0:06:12 Tab2 StartNav33 #typed
-0:06:12 Tab2 FinishNav33
-0:06:12 Tab2 PageLoad
-0:06:14 Tab2 StartNav34 #typed
-0:06:14 Tab2 FinishNav34
-0:06:14 Tab2 PageLoad
-0:06:51 Tab2 StartNav35 #typed
-0:06:51 Tab2 FinishNav35
-0:06:51 Tab2 PageLoad
-0:06:52 Tab2 StartNav36 #typed
-0:06:52 Tab2 FinishNav36
-0:06:52 Tab2 PageLoad
-0:06:54 Tab2 StartNav37 #typed
-0:06:54 Tab2 FinishNav37
-0:06:54 Tab2 PageLoad
-0:06:56 Tab2 StartNav38 #typed
-0:06:56 Tab2 FinishNav38
-0:06:56 Tab2 PageLoad
-0:06:58 Tab2 StartNav39 #typed
-0:06:58 Tab2 FinishNav39
-0:06:58 Tab2 PageLoad
-0:06:59 Tab2 StartNav40 #typed
-0:06:59 Tab2 FinishNav40
-0:06:59 Tab2 PageLoad
-0:07:00 Tab2 StartNav41 #typed
-0:07:00 Tab2 FinishNav41
-0:07:00 Tab2 PageLoad
-0:07:10 Tab2 StartNav42 #typed
-0:07:10 Tab2 FinishNav42
-0:07:10 Tab2 PageLoad
-0:07:27 Tab2 StartNav43 #typed
-0:07:27 Tab2 FinishNav43
-0:07:27 Tab2 PageLoad
-0:07:35 Tab2 StartNav44 #typed
-0:07:35 Tab2 FinishNav44
-0:07:35 Tab2 PageLoad
-0:08:03 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp
+0:16:04 Tab2 FinishNav40
+0:16:04 Tab2 PageLoad
+0:16:05 Tab2 StartNav41 #typed
+0:16:05 Tab2 FinishNav41
+0:16:05 Tab2 PageLoad
+0:16:09 Tab2 StartNav42 #typed
+0:16:09 Tab2 FinishNav42
+0:16:09 Tab2 PageLoad
+0:16:11 Tab2 StartNav43 #typed
+0:16:11 Tab2 FinishNav43
+0:16:11 Tab2 PageLoad
+0:16:23 Tab2 StartNav44 #typed
+0:16:23 Tab2 FinishNav44
+0:16:23 Tab2 PageLoad
+0:16:28 Tab2 StartNav45 #typed
+0:16:28 Tab2 FinishNav45
+0:16:28 Tab2 PageLoad
+0:23:28 Microsoft.NewBrowser_Popup
+0:23:28 Microsoft.BrowserList.AddBrowser
+0:23:28 Browser3 Insert active Tab3 at 0
+0:23:28 Tab3 StartNav46 #auto_toplevel
+0:23:28 Tab3 StartNav47 #typed
+0:23:28 Tab3 FinishNav46
+0:23:28 Tab3 PageLoad
+0:23:28 Tab3 FinishNav47
+0:23:28 Tab3 PageLoad
+0:23:32 Tab3 StartNav48 #typed
+0:23:32 Tab3 FinishNav48
+0:23:32 Tab3 PageLoad
+0:27:03 Tab3 StartNav49 #typed
+0:27:03 Tab3 FinishNav49
+0:27:03 Tab3 PageLoad
+0:27:43 Tab2 StartNav50 #typed
+0:27:43 Tab2 FinishNav50
+0:27:43 Tab2 PageLoad
+0:27:52 Tab2 StartNav51 #typed
+0:27:52 Tab2 FinishNav51
+0:27:52 Tab2 PageLoad
+0:29:17 Tab2 StartNav52 #typed
+0:29:17 Tab2 FinishNav52
+0:29:17 Tab2 PageLoad
+0:29:35 Tab2 StartNav53 #typed
+0:29:35 Tab2 FinishNav53
+0:29:35 Tab2 PageLoad
+0:30:08 Tab2 StartNav54 #typed
+0:30:08 Tab2 FinishNav54
+0:30:08 Tab2 PageLoad
+0:30:24 Tab2 StartNav55 #typed
+0:30:24 Tab2 FinishNav55
+0:30:24 Tab2 PageLoad
+0:30:26 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp

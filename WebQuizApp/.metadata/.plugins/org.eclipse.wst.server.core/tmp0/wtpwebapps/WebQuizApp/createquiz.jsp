@@ -9,6 +9,15 @@
 </head>
 <body bgcolor="${initParam.theme}">
 	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
-
+	<jsp:useBean id="lp" class="com.app.beans.LoginBean" scope="session"/>
+	<div style="text-align: center;">
+		<h3>Create Quiz</h3>
+		<form method="post" action="createquizcatch.jsp">
+			Title <input type="text" name="title"><br><br>
+			Path <input type="text" name="path"><br><br>
+			<input type="hidden" name="user_id" value="${lp.user.id}">
+			<input type="submit" value="Submit">
+		</form>
+	</div>
 </body>
 </html>

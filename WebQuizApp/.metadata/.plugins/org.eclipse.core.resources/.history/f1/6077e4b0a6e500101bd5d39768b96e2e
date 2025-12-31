@@ -1,0 +1,9 @@
+package com.app.beans;
+
+import java.util.List;
+
+import com.app.pojos.Attempts;
+
+public interface AttemptQuizBean extends AutoCloseable{
+	List<Attempts> findAll() throws Exception;
+}
