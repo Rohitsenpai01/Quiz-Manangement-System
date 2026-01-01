@@ -1,0 +1,48 @@
+package com.app.beans;
+
+import com.app.daos.QuizDao;
+import com.app.daos.QuizDaoImp;
+import com.app.pojos.Quiz;
+
+public class FindQuizBean {
+	private int quiz_id;
+	private Quiz quiz;
+	private int count;
+	public FindQuizBean() {
+	}
+	public int getQuiz_id() {
+		return quiz_id;
+	}
+
+	public void setQuiz_id(int quiz_id) {
+		this.quiz_id = quiz_id;
+	}
+
+	public Quiz getQuiz() {
+		return quiz;
+	}
+	public void setQuiz(Quiz quiz) {
+		this.quiz = quiz;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public void findQuiz() {
+		try(QuizDao quizDao = new QuizDaoImp()) {
+			Quiz quz = quizDao.findById(quiz_id);
+			this.quiz = quz;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void deleteQuiz() {
+		try(QuizDao quizDao = new QuizDaoImp()) {
+			this.count = quizDao.deleteById(quiz_id);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

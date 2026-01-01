@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="cqc" class="com.app.beans.CreateQuizBean" scope="page"/>
+<jsp:setProperty name="cqc" property="title" param="title"/>
+<jsp:setProperty name="cqc" property="path" param="path"/>
+<jsp:setProperty name="cqc" property="creator_id" param="user_id"/>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Processing Quiz...</title>
+</head>
+<body bgcolor="${initParam.theme}">
+    <h1 style="text-align: center;">${initParam.appTitle}</h1>
+    <hr>
+
+    <div style="text-align: center;">
+        <c:choose>
+            <c:when test="${cqc.createQuizz()}">
+                <p>Quiz and questions imported successfully!</p>
+                <button type="button"><a href="admin.jsp">Back</a></button><br>
+            </c:when>
+            
+            <c:otherwise>
+                <h3 style="color: red;">Failed to create quiz.</h3>
+                <p>Please check if the file path is correct and the file format is valid.</p>
+                <br>
+                <a href="createquiz.jsp">Try Again</a> | <a href="admin.jsp">Back to Dashboard</a>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</body>
+</html>

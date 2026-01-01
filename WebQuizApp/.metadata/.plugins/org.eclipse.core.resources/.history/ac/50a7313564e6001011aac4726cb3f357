@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+</head>
+<body bgcolor="${initParam.theme}">
+    <h1 style="text-align: center;">Quiz Results</h1><hr>
+    <jsp:useBean id="quli" class="com.app.beans.QuestionListBean"/>
+    <jsp:setProperty name="quli" property="quiz_id" value="${param.quiz_id}"/>
+    ${quli.fetchQuestions()}
+
+    <div style="text-align: center;">
+        <%
+            int score = 0;
+            int total = 0;
+            java.util.List<com.app.pojos.Question> list = quli.getQuestionList();
+            
+            if (list != null) {
+                total = list.size();
+                for (int i = 0; i < total; i++) {
+                    String submittedAns = request.getParameter("ans_" + i);
+                    char correctAns = list.get(i).getCorrect();
+                    if (submittedAns != null && submittedAns.equalsIgnoreCase(String.valueOf(correctAns))) {
+                        score++;
+                    }
+                }
+            }
+            request.setAttribute("finalScore", score);
+            request.setAttribute("totalQuestions", total);
+        %>
+
+        <h2>Your Score: ${finalScore} / ${totalQuestions}</h2>
+        <c:choose>
+            <c:when test="${finalScore == totalQuestions}">
+                <p style="color: green;">Perfect Score! Excellent work!</p>
+            </c:when>
+            <c:when test="${finalScore > (totalQuestions / 2)}">
+                <p style="color: blue;">Good job! You passed.</p>
+            </c:when>
+            <c:otherwise>
+                <p style="color: red;">Keep practicing. You can do better!</p>
+            </c:otherwise>
+        </c:choose>
+
+        <br>
+        <button><a href="quizlist.jsp">Try Another Quiz</a></button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+package com.app.beans;
+
+import com.app.daos.UserDao;
+import com.app.daos.UserDaoImp;
+import com.app.pojos.User;
+
+public class LoginBean {
+	private String email;
+	private String passwd;
+	public LoginBean() {
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+	public void autheticate() {
+		try(UserDao userDao = new UserDaoImp()) {
+			User dbUser = userDao.findByEmail(email);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
