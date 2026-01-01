@@ -7,10 +7,10 @@
 <meta charset="UTF-8">
 <title>${initParam.appTitle}</title>
 
-<!-- Bootstrap -->
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Tailwind -->
+
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
