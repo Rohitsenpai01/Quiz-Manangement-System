@@ -1,0 +1,54 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.pojos.Attempts;
+
+public class AttemptDaoImp extends Dao implements AttemptDao{
+	private PreparedStatement stmtFindById;
+	private PreparedStatement stmtFindAll;
+	
+	public AttemptDaoImp() throws Exception {
+		stmtFindAll = con.prepareStatement("SELECT attempt_id,quiz_id,quiz_attempts.user_id,name,final_score,total_questions FROM quiz_attempts INNER JOIN users ON quiz_attempts.user_id = users.user_id");
+		stmtFindById = con.prepareStatement("SELECT attempt_id,quiz_id,user_id,final_score,total_questions FROM quiz_attempts WHERE user_id = ?");
+	}
+
+	@Override
+	public List<Attempts> findAll() throws Exception {
+		List<Attempts> list = new ArrayList<>();
+		try(ResultSet rs = stmtFindAll.executeQuery()) {
+			while(rs.next()) {
+				int attempt_id = rs.getInt("attempt_id");
+				int quiz_id = rs.getInt("quiz_id");
+				int user_id = rs.getInt("user_id");
+				String name = rs.getString("name");
+				int final_score = rs.getInt("final_score");
+				int total_questions = rs.getInt("total_questions");
+				Attempts at = new Attempts(attempt_id, quiz_id, user_id, name, final_score, total_questions, null);
+				list.add(at);
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public Attempts findById(int student_id) throws Exception {
+		stmtFindById.setInt(1, student_id);
+		try(ResultSet rs = stmtFindById.executeQuery()) {
+			if(rs.next()) {
+				int attempt_id = rs.getInt("attempt_id");
+				int quiz_id = rs.getInt("quiz_id");
+				student_id = rs.getInt("user_id");
+				int final_score = rs.getInt("final_score");
+				int total_questions = rs.getInt("total_questions");
+				Attempts at = new Attempts(attempt_id, quiz_id, student_id, final_score, total_questions, null);
+				return at;
+			}
+		}
+		return null;
+	}
+	
+}

@@ -14,19 +14,19 @@
     <fullyQualifiedTypeName name="com.app.beans.QuestionListBean"/>
     <fullyQualifiedTypeName name="com.app.daos.AttemptDao"/>
     <fullyQualifiedTypeName name="com.app.daos.AttemptDaoImp"/>
-    <fullyQualifiedTypeName name="com.app.pojos.Attempts"/>
     <fullyQualifiedTypeName name="java.io.File"/>
     <fullyQualifiedTypeName name="com.app.util.QuestionFileParser"/>
     <fullyQualifiedTypeName name="java.lang.AutoCloseable"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
-    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.app.daos.QuizDao"/>
+    <fullyQualifiedTypeName name="com.app.daos.QuizDaoImp"/>
+    <fullyQualifiedTypeName name="com.app.pojos.Quiz"/>
     <fullyQualifiedTypeName name="com.app.pojos.Question"/>
     <fullyQualifiedTypeName name="com.app.daos.QuestionDao"/>
     <fullyQualifiedTypeName name="com.app.daos.QuestionDaoImp"/>
-    <fullyQualifiedTypeName name="com.app.daos.QuizDao"/>
-    <fullyQualifiedTypeName name="com.app.daos.QuizDaoImp"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
-    <fullyQualifiedTypeName name="com.app.pojos.Quiz"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="com.app.pojos.Attempts"/>
 </qualifiedTypeNameHistroy>

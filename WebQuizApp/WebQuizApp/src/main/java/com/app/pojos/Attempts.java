@@ -24,6 +24,17 @@ public class Attempts {
 		this.attemptTime = attemptTime;
 	}
 
+	
+	public Attempts(int id, int quiz_id, int student_id, int score, int total, LocalDateTime attemptTime) {
+		super();
+		this.id = id;
+		this.quiz_id = quiz_id;
+		this.student_id = student_id;
+		this.score = score;
+		this.total = total;
+		this.attemptTime = attemptTime;
+	}
+
 	public int getId() {
 		return id;
 	}

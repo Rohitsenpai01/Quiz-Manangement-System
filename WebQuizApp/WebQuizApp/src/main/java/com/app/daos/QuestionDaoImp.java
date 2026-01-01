@@ -11,16 +11,19 @@ import com.app.pojos.Quiz;
 public class QuestionDaoImp extends Dao implements QuestionDao{
 	private PreparedStatement stmtInsertTitle;
 	private PreparedStatement stmtGetAll;
+	private PreparedStatement stmtGetById;
 	private PreparedStatement stmtInsertQuestion;
 	
 	public QuestionDaoImp() throws Exception {
 		stmtGetAll = con.prepareStatement("SELECT question_id, quiz_id, question_text, option_a, option_b, option_c, option_d FROM questions");
+		stmtGetById = con.prepareStatement("SELECT question_text, option_a, option_b, option_c, option_d, correct_option FROM questions WHERE quiz_id = ?");
 		stmtInsertQuestion = con.prepareStatement("INSERT INTO questions " + "(quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option)" + "VALUES (?, ?, ?, ?, ?, ?, ?)");
 		stmtInsertTitle = con.prepareStatement("SELECT quiz_id FROM quizzes WHERE title=?");
 	}
 
 	public void close() throws Exception {
 		stmtGetAll.close();
+		stmtGetById.close();
 		stmtInsertTitle.close();
 		stmtInsertQuestion.close();
 	}
@@ -45,23 +48,9 @@ public class QuestionDaoImp extends Dao implements QuestionDao{
 		}
 		return list;
 	}
-	/*
-	@Override
-	public int insertTitle(Quiz q) throws Exception {
-		stmtInsertTitle.setString(1, q.getTitle());
-		
-	}
-	
-	@Override
-	public int insertQuestion(Question que) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	*/
 
 	@Override
 	public void insert(Question qs, Quiz q) throws Exception {
-	    // We use the quiz_id already set in the Question object
 	    String sql = "INSERT INTO questions (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	    try (PreparedStatement ps = con.prepareStatement(sql)) {
 	        ps.setInt(1, qs.getQuiz_id()); 
@@ -73,5 +62,25 @@ public class QuestionDaoImp extends Dao implements QuestionDao{
 	        ps.setString(7, String.valueOf(qs.getCorrect()));
 	        ps.executeUpdate();
 	    }
+	}
+
+	@Override
+	public List<Question> getById(int quiz_id) throws Exception {
+	    List<Question> queList = new ArrayList<>();
+	    stmtGetById.setInt(1, quiz_id);
+	    try(ResultSet rs = stmtGetById.executeQuery()) {
+	        while(rs.next()) {
+	            String text = rs.getString("question_text");
+	            String a = rs.getString("option_a");
+	            String b = rs.getString("option_b");
+	            String c = rs.getString("option_c");
+	            String d = rs.getString("option_d");
+	            String cor = rs.getString("correct_option");
+	            char correct = (cor != null && !cor.isEmpty()) ? cor.charAt(0) : ' ';
+	            Question que = new Question(0, quiz_id, text, a, b, c, d, correct);
+	            queList.add(que);
+	        }
+	    }
+	    return queList; 
 	}
 }

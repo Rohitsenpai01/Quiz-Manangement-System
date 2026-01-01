@@ -1,0 +1,25 @@
+package com.app.beans;
+
+import java.util.List;
+
+import com.app.pojos.Question;
+
+public class QuestionListBean {
+	private List<Question> questionList;
+
+	public QuestionListBean() {
+		super();
+	}
+
+	public List<Question> getQuestionList() {
+		return questionList;
+	}
+
+	public void setQuestionList(List<Question> questionList) {
+		this.questionList = questionList;
+	}
+	
+	public void fetchQuestions() {
+		
+	}
+}

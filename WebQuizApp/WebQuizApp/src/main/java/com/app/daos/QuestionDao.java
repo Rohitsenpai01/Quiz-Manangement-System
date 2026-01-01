@@ -7,9 +7,6 @@ import com.app.pojos.Quiz;
 
 public interface QuestionDao extends AutoCloseable{
 	List<Question> getAll() throws Exception;
-	/*
-	int insertTitle(Quiz q) throws Exception;
-	int insertQuestion(Question que) throws Exception;
-	*/
+	List<Question> getById(int quiz_id) throws Exception;
 	void insert(Question qs,Quiz q) throws Exception;
 }

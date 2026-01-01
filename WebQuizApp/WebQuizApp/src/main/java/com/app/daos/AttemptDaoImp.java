@@ -8,13 +8,21 @@ import java.util.List;
 import com.app.pojos.Attempts;
 
 public class AttemptDaoImp extends Dao implements AttemptDao{
-
+	private PreparedStatement stmtFindById;
 	private PreparedStatement stmtFindAll;
-	
+	private PreparedStatement stmtSave;
 	public AttemptDaoImp() throws Exception {
 		stmtFindAll = con.prepareStatement("SELECT attempt_id,quiz_id,quiz_attempts.user_id,name,final_score,total_questions FROM quiz_attempts INNER JOIN users ON quiz_attempts.user_id = users.user_id");
+		stmtFindById = con.prepareStatement("SELECT * FROM quiz_attempts WHERE user_id = ?");
+		stmtSave = con.prepareStatement("INSERT INTO quiz_attempts (quiz_id, user_id, final_score, total_questions) VALUES (?, ?, ?, ?)");
 	}
 
+	public void close() throws Exception {
+		stmtSave.close();
+		stmtFindById.close();
+		stmtFindAll.close();
+	}
+	
 	@Override
 	public List<Attempts> findAll() throws Exception {
 		List<Attempts> list = new ArrayList<>();
@@ -31,6 +39,42 @@ public class AttemptDaoImp extends Dao implements AttemptDao{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public List<Attempts> findStudentById(int student_id) throws Exception {
+		List<Attempts> list = new ArrayList<>();
+	    stmtFindById.setInt(1, student_id);
+	    try(ResultSet rs = stmtFindById.executeQuery()) {
+	        while(rs.next()) {
+	            int attempt_id = rs.getInt("attempt_id");
+	            int quiz_id = rs.getInt("quiz_id");
+	            int user_id = rs.getInt("user_id");
+	            int final_score = rs.getInt("final_score");
+	            int total_questions = rs.getInt("total_questions");
+	            Attempts at = new Attempts(attempt_id, quiz_id, user_id, final_score, total_questions, null);
+	            list.add(at);
+	        }
+	    }
+	    return list;
+	}
+	
+	
+
+	@Override
+	public void insertAttempt(int qid, int stuId, int score, int totalQue) throws Exception {
+		String sql = "INSERT INTO quiz_attempts (quiz_id, user_id, final_score, total_questions) VALUES (?, ?, ?, ?)";
+		try(PreparedStatement pit = con.prepareStatement(sql)) {
+			pit.setInt(1, qid);
+			pit.setInt(2, stuId);
+			pit.setInt(3, score);
+			pit.setInt(4, totalQue);
+			
+			pit.executeUpdate();
+			pit.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

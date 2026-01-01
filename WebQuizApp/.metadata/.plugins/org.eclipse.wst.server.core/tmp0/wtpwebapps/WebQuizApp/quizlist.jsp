@@ -27,7 +27,7 @@
                         <td>${quiz.title}</td>
                         <td>${quiz.creator_id}</td>
                         <td>
-                            <a href="takequiz.jsp?quiz_id=${quiz.quiz_id}">
+                            <a href="questionlist.jsp?quiz_id=${quiz.quiz_id}">
                                 <button type="button">Take Quiz</button>
                             </a>
                         </td>

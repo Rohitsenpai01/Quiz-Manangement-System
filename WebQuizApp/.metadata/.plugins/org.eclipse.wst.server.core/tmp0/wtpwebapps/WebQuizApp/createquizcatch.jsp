@@ -5,8 +5,6 @@
 <jsp:setProperty name="cqc" property="title" param="title"/>
 <jsp:setProperty name="cqc" property="path" param="path"/>
 <jsp:setProperty name="cqc" property="creator_id" param="user_id"/>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +21,6 @@
                 <p>Quiz and questions imported successfully!</p>
                 <button type="button"><a href="admin.jsp">Back</a></button><br>
             </c:when>
-            
             <c:otherwise>
                 <h3 style="color: red;">Failed to create quiz.</h3>
                 <p>Please check if the file path is correct and the file format is valid.</p>

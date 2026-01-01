@@ -31,3 +31,5 @@
 1767113098692	Encapsulate field 'count, ...'
 1767115664971	Rename type 'AttemptDao'
 1767119350033	Rename resource 'AttemptDaoImp.jsp'
+1767198562602	Rename resource 'savequiz.jsp'
+1767201159515	Delete element
