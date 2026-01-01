@@ -11,7 +11,7 @@
 	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
 	<jsp:useBean id="lp" class="com.app.beans.LoginBean" scope="session"/>
 	<div style="text-align: center;">
-	<h4>Hello, ${lp.user.name}</h4>
+	<h4>Greeting, ${lp.user.name}</h4>
 		<button><a href="createquiz.jsp">Create Quiz</a></button><br><br>
 		<button><a href="quizlistadmin.jsp">List Quizzes</a></button><br><br>
 		<button><a href="viewresult.jsp">View Results</a></button><br><br>

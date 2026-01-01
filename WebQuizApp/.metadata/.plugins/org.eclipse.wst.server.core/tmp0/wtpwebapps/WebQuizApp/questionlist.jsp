@@ -26,7 +26,7 @@
             </c:forEach>
             <input type="submit" value="Submit Quiz"><br><br>
         </form>
-        <button><a href="quizlist.jsp">Back to Quizzes</a></button><br><br>
+        <button><a href="quizlist.jsp">Back</a></button><br><br>
 	</div>
 </body>
 </html>

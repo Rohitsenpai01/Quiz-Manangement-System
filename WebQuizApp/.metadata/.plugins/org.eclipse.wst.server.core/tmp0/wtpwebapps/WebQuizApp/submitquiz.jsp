@@ -7,8 +7,7 @@
 <title>Quiz Result</title>
 </head>
 <body bgcolor="${initParam.theme}">
-	<h1 style="text-align: center;">Quiz Results</h1>
-	<hr>
+	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
 	<jsp:useBean id="quli" class="com.app.beans.QuestionListBean" />
 	<jsp:setProperty name="quli" property="quiz_id"
 		value="${param.quiz_id}" />
@@ -33,17 +32,15 @@
 		request.setAttribute("finalScore", score);
 		request.setAttribute("totalQuestions", total);
 		%>
-
-		<h2>Your Score: ${finalScore} / ${totalQuestions}</h2>
-
+		<p>Quiz Attempted Successfully</p>
 		<jsp:useBean id="sa" class="com.app.beans.AttemptQuizBean" />
 		<jsp:setProperty name="sa" property="quiz_id" value="${param.quiz_id}" />
 		<jsp:setProperty name="sa" property="student_id" value="${lp.user.id}" />
 		<jsp:setProperty name="sa" property="score" value="${finalScore}" />
 		<jsp:setProperty name="sa" property="total" value="${totalQuestions}" />
-		${sa.save()} <br> <br>
+		${sa.save()} <br>
 		<button>
-			<a href="quizlist.jsp">Try Another Quiz</a>
+			<a href="quizlist.jsp">Back</a>
 		</button>
 	</div>
 </body>
