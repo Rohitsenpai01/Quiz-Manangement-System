@@ -9,25 +9,57 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Processing Quiz...</title>
-</head>
-<body bgcolor="${initParam.theme}">
-    <h1 style="text-align: center;">${initParam.appTitle}</h1>
-    <hr>
+<title>Processing Quiz</title>
 
-    <div style="text-align: center;">
-        <c:choose>
-            <c:when test="${cqc.createQuizz()}">
-                <p>Quiz and questions imported successfully!</p>
-                <button type="button"><a href="admin.jsp">Back</a></button><br>
-            </c:when>
-            <c:otherwise>
-                <h3 style="color: red;">Failed to create quiz.</h3>
-                <p>Please check if the file path is correct and the file format is valid.</p>
-                <br>
-                <a href="createquiz.jsp">Try Again</a> | <a href="admin.jsp">Back to Dashboard</a>
-            </c:otherwise>
-        </c:choose>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body style="background-color:${initParam.theme};">
+
+    <div class="container mt-4">
+        <h1 class="text-center fw-bold">${initParam.appTitle}</h1>
+        <hr>
     </div>
+
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="card shadow-sm p-4 text-center" style="width: 100%; max-width: 500px;">
+
+            <c:choose>
+                <c:when test="${cqc.createQuizz()}">
+                    <h5 class="text-success mb-3">
+                        Quiz and questions imported successfully!
+                    </h5>
+
+                    <a href="admin.jsp" class="btn btn-primary">
+                        Back
+                    </a>
+                </c:when>
+
+                <c:otherwise>
+                    <h5 class="text-danger mb-3">
+                        Failed to create quiz
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        Please check if the file path is correct and the file format is valid.
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="createquiz.jsp" class="btn btn-outline-primary">
+                            Try Again
+                        </a>
+                        <a href="admin.jsp" class="btn btn-outline-secondary">
+                            Back to Dashboard
+                        </a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

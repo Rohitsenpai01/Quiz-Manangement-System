@@ -1,0 +1,71 @@
+Directory Structure for: D:\SUNBEAM\InternshipProject\mybranchcode\Quiz-Manangement-System\WebQuizApp\WebQuizApp\src
+==================================================
+
+src/
+|   |-- one.exe
+|   main/
+|   |   java/
+|   |   |   com/
+|   |   |   |   app/
+|   |   |   |   |   beans/
+|   |   |   |   |   |   |-- AdminBean.java
+|   |   |   |   |   |   |-- AttemptQuizBean.java
+|   |   |   |   |   |   |-- CreateQuizBean.java
+|   |   |   |   |   |   |-- FindQuizBean.java
+|   |   |   |   |   |   |-- LoginBean.java
+|   |   |   |   |   |   |-- QuestionListBean.java
+|   |   |   |   |   |   |-- QuizListBean.java
+|   |   |   |   |   |   |-- RegisterBean.java
+|   |   |   |   |   |   |-- SaveQuizBean.java
+|   |   |   |   |   daos/
+|   |   |   |   |   |   |-- AdminDao.java
+|   |   |   |   |   |   |-- AttemptDao.java
+|   |   |   |   |   |   |-- AttemptDaoImp.java
+|   |   |   |   |   |   |-- AttemptDaoO.java
+|   |   |   |   |   |   |-- Dao.java
+|   |   |   |   |   |   |-- QuestionDao.java
+|   |   |   |   |   |   |-- QuestionDaoImp.java
+|   |   |   |   |   |   |-- QuizDao.java
+|   |   |   |   |   |   |-- QuizDaoImp.java
+|   |   |   |   |   |   |-- QuizDaoO.java
+|   |   |   |   |   |   |-- StudentDaoO.java
+|   |   |   |   |   |   |-- UserDao.java
+|   |   |   |   |   |   |-- UserDaoImp.java
+|   |   |   |   |   pojos/
+|   |   |   |   |   |   |-- Attempts.java
+|   |   |   |   |   |   |-- Question.java
+|   |   |   |   |   |   |-- Quiz.java
+|   |   |   |   |   |   |-- User.java
+|   |   |   |   |   util/
+|   |   |   |   |   |   |-- DbUtil.java
+|   |   |   |   |   |   |-- QuestionFileParser.java
+|   |   webapp/
+|   |   |   |-- admin.jsp
+|   |   |   |-- attempt.jsp
+|   |   |   |-- createquiz.jsp
+|   |   |   |-- createquizcatch.jsp
+|   |   |   |-- deletequiz.jsp
+|   |   |   |-- findquiz.jsp
+|   |   |   |-- index.jsp
+|   |   |   |-- listquizzes.jsp
+|   |   |   |-- login.jsp
+|   |   |   |-- logout.jsp
+|   |   |   |-- newquiz.jsp
+|   |   |   |-- newstudent.jsp
+|   |   |   |-- questionlist.jsp
+|   |   |   |-- quizlist.jsp
+|   |   |   |-- quizlistadmin.jsp
+|   |   |   |-- register.jsp
+|   |   |   |-- savequiz.jsp
+|   |   |   |-- student.jsp
+|   |   |   |-- submitquiz.jsp
+|   |   |   |-- takequiz.jsp
+|   |   |   |-- updatequiz.jsp
+|   |   |   |-- viewresult.jsp
+|   |   |   |-- viewscore.jsp
+|   |   |   META-INF/
+|   |   |   |   |-- MANIFEST.MF
+|   |   |   WEB-INF/
+|   |   |   |   |-- web.xml
+|   |   |   |   lib/
+|   |   |   |   |   |-- lombok.jar

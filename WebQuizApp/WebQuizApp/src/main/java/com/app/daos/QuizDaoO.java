@@ -24,9 +24,9 @@ private Connection con = null;
 			ResultSet rs = selectStatement.executeQuery();
 			while (rs.next()) {
 				Quiz quiz = new Quiz();
-				quiz.setId(rs.getInt(1));
+				quiz.setQuiz_id(rs.getInt(1));
 				quiz.setTitle(rs.getString(2));
-				quiz.setCreater_id(rs.getInt(3));
+				quiz.setCreator_id(rs.getInt(3));
 				quizList.add(quiz);
 			}
 		}
@@ -54,7 +54,7 @@ private Connection con = null;
 		String sql = "INSERT INTO quizzes (title, creator_id) VALUES (?, ?)";
 		try (PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setString(1, q.getTitle());
-			ps.setInt(2, q.getCreater_id());
+			ps.setInt(2, q.getCreator_id());
 			ps.executeUpdate();
 		}
 		return AdminDao.adId;

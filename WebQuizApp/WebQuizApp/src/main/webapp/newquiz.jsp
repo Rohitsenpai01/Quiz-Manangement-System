@@ -4,18 +4,49 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Add Quiz</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body bgcolor="${initParam.theme}">
-	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
-	<div style="text-align: center;">
-		<form method="post" action="savequiz.jsp">
-			<input type="hidden" name="quizId" value="0">
-			Title <input type="text" name="title"/> <br/><br/>
-			Path <input type="text" name="path"/> <br/><br/>
-			<input type="hidden" name="op" value="add"/>
-			<input type="submit" value="Add Quiz"/>
-		</form>
-	</div>
+
+<body style="background-color:${initParam.theme};">
+
+    <div class="container mt-4">
+        <h1 class="text-center fw-bold">${initParam.appTitle}</h1>
+        <hr>
+    </div>
+
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="card shadow-sm p-4" style="width: 100%; max-width: 420px;">
+
+            <h4 class="text-center mb-4">Add Quiz</h4>
+
+            <form method="post" action="savequiz.jsp">
+
+                <input type="hidden" name="quizId" value="0">
+
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Path</label>
+                    <input type="text" name="path" class="form-control" required>
+                </div>
+
+                <input type="hidden" name="op" value="add">
+
+                <div class="d-grid">
+                    <input type="submit" value="Add Quiz" class="btn btn-primary">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
