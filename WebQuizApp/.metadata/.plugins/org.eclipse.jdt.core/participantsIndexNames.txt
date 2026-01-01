@@ -1,3 +1,0 @@
-INDEX VERSION 1.134
-G:\Internship\Adv_Java\Project\WebQuizApp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2213717417.index
-\WebQuizApp\src\main\java
