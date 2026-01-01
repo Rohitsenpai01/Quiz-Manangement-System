@@ -7,26 +7,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body bgcolor="${initParam.theme}">
-	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
-	<jsp:useBean id="lp" class="com.app.beans.LoginBean" scope="session"/>
-	<jsp:setProperty name="lp" property="*"/>
-	${lp.autheticate()}
-	<c:choose>
-		<c:when test="${empty lp.user}">
-			<div style="text-align: center">
-			<h3>Login Failed</h3>
-				<p>Invalid email or password</p>
-				<button><a href="index.jsp">Login Again</a></button>
-			</div>
-		</c:when>
-		<c:when test="${lp.user.role == 'Admin'}">
-			<c:redirect url="admin.jsp"/>
-		</c:when>
-		<c:otherwise>
-			<c:redirect url="student.jsp"/>
-		</c:otherwise>
-	</c:choose>
+
+<body style="background-color:${initParam.theme};">
+
+    <div class="container mt-4">
+        <h1 class="text-center fw-bold">${initParam.appTitle}</h1>
+        <hr>
+    </div>
+
+    <jsp:useBean id="lp" class="com.app.beans.LoginBean" scope="session"/>
+    <jsp:setProperty name="lp" property="*"/>
+    ${lp.autheticate()}
+
+    <c:choose>
+
+        <c:when test="${empty lp.user}">
+            <div class="container d-flex justify-content-center mt-5">
+                <div class="card shadow-sm p-4 text-center" style="width: 100%; max-width: 400px;">
+
+                    <h5 class="text-danger mb-2">Login Failed</h5>
+                    <p class="text-muted mb-4">Invalid email or password</p>
+
+                    <a href="index.jsp" class="btn btn-primary">
+                        Login Again
+                    </a>
+
+                </div>
+            </div>
+        </c:when>
+
+        <c:when test="${lp.user.role == 'Admin'}">
+            <c:redirect url="admin.jsp"/>
+        </c:when>
+
+        <c:otherwise>
+            <c:redirect url="student.jsp"/>
+        </c:otherwise>
+
+    </c:choose>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

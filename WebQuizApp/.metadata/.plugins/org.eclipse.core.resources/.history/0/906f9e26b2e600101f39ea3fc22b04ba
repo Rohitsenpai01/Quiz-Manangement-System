@@ -1,0 +1,94 @@
+package com.app.beans;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.daos.AttemptDao;
+import com.app.daos.AttemptDaoImp;
+import com.app.pojos.Attempts;
+
+public class AttemptQuizBean {
+	private List<Attempts> attemptList;
+	private int student_id;
+	private int score;
+	private int total;
+	private int quiz_id;
+	public AttemptQuizBean() {
+		this.attemptList = new ArrayList<>();
+	}
+	
+	public List<Attempts> getAttemptList() {
+		return attemptList;
+	}
+
+
+	public void setAttemptList(List<Attempts> attemptList) {
+		this.attemptList = attemptList;
+	}
+
+
+	public int getStudent_id() {
+		return student_id;
+	}
+
+
+	public void setStudent_id(int student_id) {
+		this.student_id = student_id;
+	}
+
+
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
+	public int getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+
+	public int getQuiz_id() {
+		return quiz_id;
+	}
+
+
+	public void setQuiz_id(int quiz_id) {
+		this.quiz_id = quiz_id;
+	}
+
+
+	public void viewresult() {
+		try(AttemptDao attemptDao = new AttemptDaoImp()) {
+			List<Attempts> attempt = attemptDao.findAll();
+			this.attemptList =  attempt;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void viewScore() {
+		try(AttemptDao attemptDao = new AttemptDaoImp()) {
+			List<Attempts> attempt =  attemptDao.findStudentById(student_id);
+			this.attemptList = attempt;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void save() {
+		try(AttemptDao attemptDao = new AttemptDaoImp()) {
+			 attemptDao.insertAttempt(quiz_id, student_id, score, total);
+			 System.out.println(quiz_id+score);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

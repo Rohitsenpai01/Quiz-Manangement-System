@@ -1,0 +1,37 @@
+package com.app.beans;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.daos.AttemptDao;
+import com.app.daos.AttemptDaoImp;
+import com.app.pojos.Attempts;
+
+public class AttemptQuizBean {
+	private List<Attempts> attemptList;
+	public AttemptQuizBean() {
+		this.attemptList = new ArrayList<>();
+	}
+	public List<Attempts> getAttemptList() {
+		return attemptList;
+	}
+	public void setAttemptList(List<Attempts> attemptList) {
+		this.attemptList = attemptList;
+	}
+	public void viewresult() {
+		try(AttemptDao attemptDao = new AttemptDaoImp()) {
+			List<Attempts> attempt = attemptDao.findAll();
+			this.attemptList =  attempt;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void viewScore() {
+		try(AttemptDao attemptDao = new AttemptDaoImp()) {
+			List<Attempts> attempt = attemptDao.findAll();
+			this.attemptList =  attempt;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

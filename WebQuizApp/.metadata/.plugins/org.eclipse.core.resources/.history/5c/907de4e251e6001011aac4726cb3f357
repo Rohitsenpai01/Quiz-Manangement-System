@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body bgcolor="${initParam.theme}">
+	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
+	<div style="text-align: center;">
+		<jsp:useBean id="quli" class="com.app.beans.QuestionListBean"/>
+		${quli.fetchQuestions()}
+		<form method="post" action="">
+			<c:forEach var="qulist" items="${quli.questionList}">
+				<p>${qulist.text}</p><br>
+				<input type="radio" name="que">${quli.a}<br>
+				<input type="radio" name="que">${quli.b}<br>
+				<input type="radio" name="que">${quli.c}<br>
+				<input type="radio" name="que">${quli.d}<br>
+			</c:forEach>
+			<input type="submit" value="Submit"><br><br>
+		</form>
+		<button><a href="quizlist.jsp">View Quizzes</a></button><br><br>
+	</div>
+</body>
+</html>

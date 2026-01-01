@@ -1,0 +1,43 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.util.List;
+
+import com.app.pojos.Question;
+
+public class QuestionDaoImp extends Dao implements QuestionDao{
+	private PreparedStatement stmtSaveAnswer;
+	private PreparedStatement stmtGetAll;
+	private PreparedStatement stmtFindById;
+	
+	public QuestionDaoImp() throws Exception {
+		stmtGetAll = con.prepareStatement();
+		stmtFindById = con.prepareStatement();
+		stmtSaveAnswer = con.prepareStatement();
+	}
+
+	public void close() throws Exception {
+		stmtGetAll.close();
+		stmtFindById.close();
+		stmtSaveAnswer.close();
+	}
+	
+	@Override
+	public List<Question> getAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Question findById(int Quiz) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int saveAnswer(Question que) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}
