@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz in Progress</title>
+</head>
+<body>
+    <h2>${currentQuiz.title}</h2>
+    <form action="SubmitQuizServlet" method="post">
+        <input type="hidden" name="quizId" value="${currentQuiz.quizId}">
+
+        <c:forEach var="q" items="${questionList}" varStatus="status">
+            <div style="margin-bottom: 20px; border-bottom: 1px solid #ccc;">
+                <p><strong>Question ${status.count}:</strong> ${q.questionText}</p>
+                
+                <input type="radio" name="answer_${q.qId}" value="1" required> ${q.option1} <br>
+                <input type="radio" name="answer_${q.qId}" value="2"> ${q.option2} <br>
+                <input type="radio" name="answer_${q.qId}" value="3"> ${q.option3} <br>
+                <input type="radio" name="answer_${q.qId}" value="4"> ${q.option4} <br>
+            </div>
+        </c:forEach>
+
+        <br>
+        <button type="submit">Submit My Answers</button>
+    </form>
+</body>
+</html>

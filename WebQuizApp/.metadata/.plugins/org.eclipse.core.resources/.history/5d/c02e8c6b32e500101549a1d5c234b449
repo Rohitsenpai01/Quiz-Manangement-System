@@ -1,0 +1,42 @@
+package com.app.pojos;
+
+public class Quiz {
+	public int quiz_id;
+	public String title;
+	public Integer creator_id;
+
+	public Quiz() {
+	}
+	
+	public Quiz(int quizId, String title, Integer creator_id) {
+		this.quizId = quizId;
+		this.title = title;
+		this.creator_id = creator_id;
+	}
+	
+	public int getId() {
+		return quizId;
+	}
+	
+	public void setId(int quizId) {
+		this.quizId = quizId;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public Integer getCreator_id() {
+		return creator_id;
+	}
+	
+	public void setCreator_id(Integer creator_id) {
+		this.creator_id = creator_id;
+	}
+	
+}
+

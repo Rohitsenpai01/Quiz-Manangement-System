@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body bgcolor="${initParam.theme}">
+	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
+	<jsp:useBean id="sq" class="com.app.beans.SaveQuizBean"/>
+	<jsp:setProperty name="sq" property="*"/>
+	<c:choose>
+		<c:when test="${sq.op == 'add'}">
+			${sq.addQuiz()}
+			<jsp:forward>
+				<jsp:param name="msg" value="Quiz Addded: ${sq.count}">
+			</jsp:forward>
+		</c:when>
+		<c:when test="">
+		</c:when>
+	</c:choose>
+</body>
+</html>

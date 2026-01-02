@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body bgcolor="${initParam.theme}">
+	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
+	<jsp:useBean id="ql" class="com.app.beans.QuizListBean" scope="session"/>
+	<jsp:useBean id="lp" class="com.app.beans.LoginBean" scope="session"/>
+	<div style="text-align: center;">
+		Welcome, ${lp.user.name}
+		${ql.getQuizzes()}
+		<p>Select Quiz</p>
+		<form method="post" action="quizattempt.jsp">
+			<c:forEach var="c" items="${ql.quizlist}">
+				<input type="radio" name="quiz" value="${c.id}"> ${c.title} - ${c.creator_id}<br>
+			</c:forEach>
+			<input type="submit" value="Attempt">
+		</form>
+	</div>
+</body>
+</html>

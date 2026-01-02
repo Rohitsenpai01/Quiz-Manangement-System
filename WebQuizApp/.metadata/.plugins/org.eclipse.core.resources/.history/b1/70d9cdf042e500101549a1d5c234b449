@@ -1,0 +1,43 @@
+package com.app.beans;
+
+import java.util.List;
+
+import com.app.daos.QuestionDao;
+import com.app.daos.QuestionDaoImp;
+import com.app.pojos.Question;
+
+public class QuestionListBean {
+	private int quiz_id;
+	private List<Question> queList;
+	
+	public QuestionListBean() {
+		
+	}
+	public List<Question> getQueList() {
+		return queList;
+	}
+	public void setQueList(List<Question> queList) {
+		this.queList = queList;
+	}
+	
+	public int getQuiz_id() {
+		return quiz_id;
+	}
+	public void setQuiz_id(int quiz_id) {
+		this.quiz_id = quiz_id;
+	}
+	public Question getQues() {
+		return ques;
+	}
+	public void setQues(Question ques) {
+		this.ques = ques;
+	}
+	public void fetchQuestion() {
+		try(QuestionDao queDao = new QuestionDaoImp()) {
+			List<Question> ques = queDao.getQuestion(quiz_id);
+			this.ques = ques;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

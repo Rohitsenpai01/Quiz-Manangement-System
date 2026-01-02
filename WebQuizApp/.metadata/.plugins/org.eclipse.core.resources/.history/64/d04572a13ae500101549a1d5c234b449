@@ -1,0 +1,9 @@
+package com.app.daos;
+
+import java.util.List;
+import com.app.pojos.Question;
+
+public interface QuestionDao extends AutoCloseable{
+	List<Question> getAll() throws Exception;
+	
+}

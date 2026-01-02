@@ -1,0 +1,19 @@
+package com.app.daos;
+
+import java.util.List;
+
+import com.app.pojos.Question;
+
+public class QuestionDaoImp extends Dao implements QuestionDao{
+
+	public QuestionDaoImp() throws Exception {
+		
+	}
+
+	@Override
+	public List<Question> getAll() throws Exception {
+		
+		return null;
+	}
+
+}

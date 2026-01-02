@@ -1,0 +1,14 @@
+package com.app.daos;
+
+import java.util.List;
+
+import com.app.pojos.Quiz;
+
+public interface QuizDao extends AutoCloseable{
+	List<Quiz> findAll() throws Exception;
+	Quiz findById(int quizId) throws Exception;
+	int save(Quiz q) throws Exception;
+	int update(Quiz q) throws Exception;
+	int deleteById(int quizId) throws Exception;
+	int insert(Quiz q);
+}

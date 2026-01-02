@@ -1,0 +1,76 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.pojos.Question;
+import com.app.pojos.Quiz;
+
+public class QuestionDaoImp extends Dao implements QuestionDao{
+	private PreparedStatement stmtInsertTitle;
+	private PreparedStatement stmtGetAll;
+	private PreparedStatement stmtGetById;
+	private PreparedStatement stmtInsertQuestion;
+	
+	public QuestionDaoImp() throws Exception {
+		stmtGetAll = con.prepareStatement("SELECT question_id, quiz_id, question_text, option_a, option_b, option_c, option_d FROM questions");
+		stmtGetById = con.prepareStatement("SELECT question_text, option_a, option_b, option_c, option_d, correct_option FROM questions WHERE quiz_id = ?");
+		stmtInsertQuestion = con.prepareStatement("INSERT INTO questions " + "(quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option)" + "VALUES (?, ?, ?, ?, ?, ?, ?)");
+		stmtInsertTitle = con.prepareStatement("SELECT quiz_id FROM quizzes WHERE title=?");
+	}
+
+	public void close() throws Exception {
+		stmtGetAll.close();
+		stmtGetById.close();
+		stmtInsertTitle.close();
+		stmtInsertQuestion.close();
+	}
+	
+	@Override
+	public List<Question> getAll() throws Exception {
+		List<Question> list = new ArrayList<>();
+		try(ResultSet rs = stmtGetAll.executeQuery()) {
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				int quiz_id = rs.getInt("quiz_id");
+				String text = rs.getString("text");
+				String a = rs.getString("a");
+				String b = rs.getString("b");
+				String c = rs.getString("c");
+				String d = rs.getString("d");
+				String cor = rs.getString("correct");
+				char correct = cor.charAt(0);
+				Question que = new Question(id, quiz_id, text, a, b, c, d, correct);
+				list.add(que);
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public void insert(Question qs, Quiz q) throws Exception {
+	    String sql = "INSERT INTO questions (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	    try (PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, qs.getQuiz_id()); 
+	        ps.setString(2, qs.getText());
+	        ps.setString(3, qs.getA());
+	        ps.setString(4, qs.getB());
+	        ps.setString(5, qs.getC());
+	        ps.setString(6, qs.getD());
+	        ps.setString(7, String.valueOf(qs.getCorrect()));
+	        ps.executeUpdate();
+	    }
+	}
+
+	@Override
+	public List<Question> getById(int quiz_id) throws Exception {
+		List<Question> queList = new ArrayList<>();
+		stmtGetById.setInt(1, quiz_id);
+		try(ResultSet rs = stmtGetById.executeQuery()) {
+			
+		}
+		return null;
+	}
+}

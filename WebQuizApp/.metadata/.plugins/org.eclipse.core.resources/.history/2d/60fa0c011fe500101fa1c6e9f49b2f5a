@@ -1,0 +1,82 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.pojos.Quiz;
+
+public class QuizDaoImp extends Dao implements QuizDao{
+	private PreparedStatement stmtFindAll;
+	private PreparedStatement stmtFindById;
+	private PreparedStatement stmtSave;
+	private PreparedStatement stmtUpdate;
+	private PreparedStatement stmtDeleteById;
+	
+	public QuizDaoImp() throws Exception {
+		String sqlFindAll = "SELECT quiz_id, title, creator_id FROM quizzes";
+		stmtFindAll = con.prepareStatement(sqlFindAll);
+		String sqlFindById = "SELECT * FROM quizzes";
+		stmtFindById = con.prepareStatement(sqlFindById);
+		String sqlSave = "INSERT INTO quizzes (title, creator_id) VALUES (?, ?)";
+		stmtSave = con.prepareStatement(sqlSave);
+		String sqlDeleteById = "DELETE FROM quizzes WHERE quiz_id = ?";
+		stmtDeleteById = con.prepareStatement(sqlDeleteById);
+		String sqlUpdate = "UPDATE quizzes SET name = ? WHERE quiz_id = ?";
+		stmtUpdate = con.prepareStatement(sqlUpdate);
+	}
+	
+	public void close() throws Exception {
+		stmtFindAll.close();
+		stmtFindById.close();
+		stmtSave.close();
+		stmtDeleteById.close();
+		stmtUpdate.close();
+		super.close();
+	}
+
+	@Override
+	public List<Quiz> findAll() throws Exception {
+		List<Quiz> list = new ArrayList<>();
+		try(ResultSet rs = stmtFindAll.executeQuery()) {
+			while(rs.next()) {
+				int qid = rs.getInt("quiz_id");
+				String title = rs.getString("title");
+				int creator_id = rs.getInt("creator_id");
+				Quiz quiz = new Quiz(qid,title,creator_id);
+				list.add(quiz);
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public Quiz findById(int quizId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int save(Quiz q) throws Exception {
+		stmtSave.setInt(1, q.getId());
+		stmtSave.setString(2, q.getTitle());
+		stmtSave.setInt(3, q.getCreater_id());
+		int count = stmtSave.executeUpdate();
+		return count;
+	}
+
+	@Override
+	public int update(Quiz q) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteById(int qid) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+}

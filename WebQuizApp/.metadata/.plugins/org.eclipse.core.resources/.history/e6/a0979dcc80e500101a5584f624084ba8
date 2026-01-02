@@ -1,0 +1,42 @@
+package com.app.beans;
+
+import com.app.pojos.Quiz;
+
+public class CreateQuizBean {
+	private String title;
+	private String file;
+	private Quiz q;
+	public CreateQuizBean() {
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
+	public Quiz getQ() {
+		return q;
+	}
+	public void setQ(Quiz q) {
+		this.q = q;
+	}
+	public void createQuiz() {
+		try (QuizDao quizDao = new QuizDao()) {
+			int quizId = quizDao.insert(quiz);
+			List<Question> list = QuestionFileParser.parse(file);
+			try (QuestionDao questionDao = new QuestionDao()) {
+				for (Question q : list) {
+					q.quiz_id = quizId;
+					questionDao.insert(q,title); 	
+				}
+			}
+			System.out.println("Quiz imported Successfully ");
+		}
+	}
+}

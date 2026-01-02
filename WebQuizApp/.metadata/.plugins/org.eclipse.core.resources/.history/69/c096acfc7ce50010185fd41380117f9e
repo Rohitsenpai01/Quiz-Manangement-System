@@ -1,0 +1,76 @@
+package com.app.daos;
+
+import java.io.*;
+import java.util.*;
+import com.app.pojos.*;
+import com.app.daos.*;
+import com.app.util.QuestionFileParser;
+
+public class CreateQuizBean {
+    private String title;
+    private int userId;
+    private Part filePart;
+    private String message;
+    private boolean success;
+
+    public CreateQuizBean() {}
+
+    // Getters and Setters
+    public void setTitle(String title) { this.title = title; }
+    public void setUserId(int userId) { this.userId = userId; }
+    public void setFilePart(Part filePart) { this.filePart = filePart; }
+    public String getMessage() { return message; }
+    public boolean isSuccess() { return success; }
+
+    public void processQuiz(String realPath) {
+        File tempFile = null;
+        try {
+            if (filePart == null || title == null) {
+                throw new Exception("Missing title or file.");
+            }
+
+            // 1. Save file temporarily
+            String tempFileName = realPath + File.separator + "temp_" + System.currentTimeMillis() + ".txt";
+            tempFile = new File(tempFileName);
+            
+            try (InputStream is = filePart.getInputStream(); 
+                 FileOutputStream os = new FileOutputStream(tempFile)) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = is.read(buffer)) != -1) {
+                    os.write(buffer, 0, bytesRead);
+                }
+            }
+
+            // 2. Parse questions 
+            List<Question> questions = QuestionFileParser.parse(tempFile);
+
+            // 3. Save Quiz and get ID 
+            int newQuizId;
+            try (QuizDao quizDao = new QuizDaoImp()) {
+                Quiz q = new Quiz(0, title, userId);
+                newQuizId = quizDao.save(q); // Returns generated ID
+            }
+
+            // 4. Save Questions 
+            try (QuestionDao queDao = new QuestionDaoImp()) {
+                for (Question q : questions) {
+                    q.setQuiz_id(newQuizId);
+                    queDao.save(q);
+                }
+            }
+
+            this.success = true;
+            this.message = "Quiz '" + title + "' created successfully with " + questions.size() + " questions!";
+            
+        } catch (Exception e) {
+            this.success = false;
+            this.message = "Error: " + e.getMessage();
+            e.printStackTrace();
+        } finally {
+            if (tempFile != null && tempFile.exists()) {
+                tempFile.delete();
+            }
+        }
+    }
+}

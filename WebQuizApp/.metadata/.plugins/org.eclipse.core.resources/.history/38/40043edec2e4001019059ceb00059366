@@ -1,0 +1,27 @@
+package com.app.beans;
+
+import java.util.List;
+
+import com.app.daos.QuizDao;
+import com.app.daos.QuizDaoImp;
+import com.app.pojos.Quiz;
+
+public class QuizListBean {
+	private List<Quiz> quizList;
+	public QuizListBean(List<Quiz> quizList) {
+		this.quizList = quizList;
+	}
+	public List<Quiz> getQuizList() {
+		return quizList;
+	}
+	public void setQuizList(List<Quiz> quizList) {
+		this.quizList = quizList;
+	}
+	public void getQuizzes() {
+		try(QuizDao quizDao = new QuizDaoImp()) {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

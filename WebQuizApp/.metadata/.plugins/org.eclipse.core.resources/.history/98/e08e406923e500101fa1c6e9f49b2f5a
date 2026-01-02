@@ -1,0 +1,11 @@
+package com.app.beans;
+
+public class SaveQuizBean {
+	private int quizId;
+	private String title;
+	private Integer creator_id;
+	public SaveQuizBean() {
+	}
+	
+	
+}

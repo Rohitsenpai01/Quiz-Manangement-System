@@ -1,0 +1,70 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.io.*, java.util.*, javax.servlet.http.*" %>
+<%@ page import="com.app.util.QuestionFileParser" %>
+<%@ page import="com.app.pojos.*" %>
+<%@ page import="com.app.daos.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
+<html>
+<head><title>Processing Quiz</title></head>
+<body>
+<%
+    try {
+        // 1. Capture basic parameters
+        String title = request.getParameter("title");
+        String userIdStr = request.getParameter("user_id");
+        Part filePart = request.getPart("filename"); 
+
+        if (filePart != null && title != null) {
+            // 2. Materialize the file temporarily on the server
+            String tempPath = application.getRealPath("/") + "temp_" + System.currentTimeMillis() + ".txt";
+            File tempFile = new File(tempPath);
+
+            try (InputStream is = filePart.getInputStream(); 
+                 FileOutputStream os = new FileOutputStream(tempFile)) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = is.read(buffer)) != -1) {
+                    os.write(buffer, 0, bytesRead);
+                }
+            }
+
+            // 3. Parse the file into POJOs 
+            List<Question> questions = QuestionFileParser.parse(tempFile);
+
+            // 4. Save to Database using DAOs
+            int quizId = 0;
+            try (QuizDao quizDao = new QuizDaoImp()) {
+                // Save the Quiz first to generate an ID
+                Quiz newQuiz = new Quiz(0, title, Integer.parseInt(userIdStr));
+                quizDao.save(newQuiz);
+                
+                // Fetch the generated ID (Assuming your DAO/DB handles this)
+                // In a real scenario, you'd use stmt.getGeneratedKeys() in QuizDaoImp
+                List<Quiz> all = quizDao.findAll();
+                quizId = all.get(all.size() - 1).getQuiz_id();
+            }
+
+            try (QuestionDao queDao = new QuestionDaoImp()) {
+                for (Question q : questions) {
+                    q.setQuiz_id(quizId); // Link question to the new quiz 
+                    queDao.save(q);
+                }
+            }
+
+            out.println("<h3 style='color:green;'>Success!</h3>");
+            out.println("<p>Quiz '" + title + "' created with " + questions.size() + " questions.</p>");
+
+            tempFile.delete(); // Cleanup
+        }
+    } catch (Exception e) {
+        out.println("<h3 style='color:red;'>Error processing request.</h3>");
+        out.println("<p>Ensure the server allows multipart/form-data without XML config.</p>");
+        e.printStackTrace();
+    }
+%>
+<br>
+<a href="quizlist.jsp">View All Quizzes</a>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Create Quiz</title>
+</head>
+<body bgcolor="${initParam.theme}">
+	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
+	<div style="text-align: center;">
+		<h3>Create Quiz</h3>
+		<form method="post" action="quiz.jsp">
+			Title <input type="text" name="title"><br><br>
+			Choose File<br>
+			<input type="file" id="upFile" name="filename">
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+</body>
+</html>

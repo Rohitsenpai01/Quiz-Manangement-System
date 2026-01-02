@@ -1,0 +1,112 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement; // Added for RETURN_GENERATED_KEYS
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.pojos.Quiz;
+
+public class QuizDaoImp extends Dao implements QuizDao {
+    private PreparedStatement stmtFindAll;
+    private PreparedStatement stmtFindById;
+    private PreparedStatement stmtSave;
+    private PreparedStatement stmtUpdate;
+    private PreparedStatement stmtDeleteById;
+
+    public QuizDaoImp() throws Exception {
+        [cite_start]// con is inherited from Dao [cite: 1]
+        String sqlFindAll = "SELECT quiz_id, title, creator_id FROM quizzes";
+        stmtFindAll = con.prepareStatement(sqlFindAll);
+
+        String sqlFindById = "SELECT quiz_id, title, creator_id FROM quizzes WHERE quiz_id = ?";
+        stmtFindById = con.prepareStatement(sqlFindById);
+
+        // We do not pre-initialize stmtSave here because the save method 
+        // now creates its own local PreparedStatement to handle generated keys.
+        
+        String sqlDeleteById = "DELETE FROM quizzes WHERE quiz_id = ?";
+        stmtDeleteById = con.prepareStatement(sqlDeleteById);
+
+        String sqlUpdate = "UPDATE quizzes SET title = ? WHERE quiz_id = ?"; // Fixed column name from 'name' to 'title'
+        stmtUpdate = con.prepareStatement(sqlUpdate);
+    }
+
+    @Override
+    public void close() throws Exception {
+        // Using a check to ensure we don't call close on null if stmtSave isn't initialized in constructor
+        if (stmtFindAll != null) stmtFindAll.close();
+        if (stmtFindById != null) stmtFindById.close();
+        if (stmtDeleteById != null) stmtDeleteById.close();
+        if (stmtUpdate != null) stmtUpdate.close();
+        super.close();
+    }
+
+    @Override
+    public List<Quiz> findAll() throws Exception {
+        List<Quiz> list = new ArrayList<>();
+        try (ResultSet rs = stmtFindAll.executeQuery()) {
+            while (rs.next()) {
+                int quizId = rs.getInt("quiz_id");
+                String title = rs.getString("title");
+                int creator_id = rs.getInt("creator_id");
+                Quiz q = new Quiz(quizId, title, creator_id);
+                list.add(q);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public Quiz findById(int quiz_id) throws Exception {
+        stmtFindById.setInt(1, quiz_id);
+        try (ResultSet rs = stmtFindById.executeQuery()) {
+            if (rs.next()) {
+                // FIXED: Column name must match the SELECT query ('quiz_id' instead of 'quizId')
+                int id = rs.getInt("quiz_id"); 
+                String title = rs.getString("title");
+                int creator_id = rs.getInt("creator_id");
+                return new Quiz(id, title, creator_id);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public int save(Quiz q) throws Exception {
+        String sqlSave = "INSERT INTO quizzes (title, creator_id) VALUES (?, ?)";
+        // Using try-with-resources for the local statement to ensure it closes properly
+        try (PreparedStatement localStmtSave = con.prepareStatement(sqlSave, Statement.RETURN_GENERATED_KEYS)) {
+            localStmtSave.setString(1, q.getTitle());
+            localStmtSave.setInt(2, q.getCreator_id());
+
+            int affectedRows = localStmtSave.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new Exception("Creating quiz failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = localStmtSave.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1); // Returns the new quiz_id for your JSP logic
+                } else {
+                    throw new Exception("Creating quiz failed, no ID obtained.");
+                }
+            }
+        }
+    }
+
+    @Override
+    public int update(Quiz q) throws Exception {
+        stmtUpdate.setString(1, q.getTitle());
+        stmtUpdate.setInt(2, q.getQuiz_id());
+        return stmtUpdate.executeUpdate();
+    }
+
+    @Override
+    public int deleteById(int quizId) throws Exception {
+        stmtDeleteById.setInt(1, quizId);
+        return stmtDeleteById.executeUpdate();
+    }
+}

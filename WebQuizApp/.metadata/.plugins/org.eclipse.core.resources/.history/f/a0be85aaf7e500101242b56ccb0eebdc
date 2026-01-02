@@ -1,0 +1,51 @@
+package com.app.beans;
+
+import com.app.daos.QuizDao;
+import com.app.daos.QuizDaoImp;
+import com.app.pojos.Quiz;
+
+public class CreateQuizBean {
+
+	private Quiz q;
+	private String path;
+	private String title;
+	private int creator_id;
+	public CreateQuizBean() {
+		super();
+	}
+	public Quiz getQ() {
+		return q;
+	}
+	public void setQ(Quiz q) {
+		this.q = q;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public int getCreator_id() {
+		return creator_id;
+	}
+	public void setCreator_id(int creator_id) {
+		this.creator_id = creator_id;
+	}
+
+	public boolean createQuiz() {
+	    try (QuizDao quizDao = new QuizDaoImp()) {
+	        Quiz quiz = new Quiz(0, title, creator_id);
+	        // Call the DAO method that handles both Quiz and File Parsing
+	        return quizDao.createQuiz(quiz, path);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+}

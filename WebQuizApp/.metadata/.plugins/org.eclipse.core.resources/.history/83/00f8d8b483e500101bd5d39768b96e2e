@@ -1,0 +1,63 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.pojos.Question;
+
+public class QuestionDaoImp extends Dao implements QuestionDao {
+    private PreparedStatement stmtFindAll;
+    private PreparedStatement stmtFindByQuizId; // Renamed from stmtFindById for clarity
+    private PreparedStatement stmtInsert;
+    public QuestionDaoImp() throws Exception {
+        stmtFindAll = con.prepareStatement("SELECT id, quiz_id, text, a, b, c, d, correct FROM questions");
+        stmtFindByQuizId = con.prepareStatement("SELECT id, quiz_id, text, a, b, c, d, correct FROM questions WHERE quiz_id = ?");
+        stmtInsert = con.prepareStatement("SELECT  quiz_id FROM quizzes WHERE title=?");
+    }
+
+	@Override
+	public void insert(Question q, String title) {
+		String qti = ;
+		int qid ;
+		try(PreparedStatement pt = con.prepareStatement(qti)){
+			pt.setString(1, title);
+			ResultSet rs1 = pt.executeQuery();
+			rs1.next();
+			qid = rs1.getInt(1);
+		}
+			
+		
+		String sql = "INSERT INTO questions " + "(quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option)" + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+		try (PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setInt(1, qid);
+			ps.setString(2,q.text);
+			ps.setString(3,q.a);
+			ps.setString(4,q.b);
+			ps.setString(5,q.c);
+			ps.setString(6,q.d);
+			ps.setString(7, String.valueOf(q.getCorrect()));
+			ps.executeUpdate();
+		}
+	}
+
+	@Override
+	public List<Question> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Question findById(int quiz_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int save(Question que) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

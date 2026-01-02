@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body bgcolor="${initParam.theme}">
+	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
+	<jsp:useBean id="qaj" class="com.app.beans.QuestionListBean"/>
+	${qaj.fetchQuestion()}
+	<form method="post" action="attempt.jsp">
+		<c:forEach var="ques" items="${qaj.queList}">
+			${ques.question_text}<br>
+			<input type="radio" name="option_a" value="${ques.quiz_id}">${ques.a}<br>
+			<input type="radio" name="option_b" value="${ques.quiz_id}">${ques.b}<br>
+			<input type="radio" name="option_c" value="${ques.quiz_id}">${ques.c}<br>
+			<input type="radio" name="option_d" value="${ques.quiz_id}">${ques.d}<br>
+			<input type="submit" value="Next">
+		</c:forEach>
+		
+	</form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add New Quiz</title>
+</head>
+<body>
+    <h2>Upload Quiz Questions</h2>
+    <hr/>
+    <form action="UploadController" method="post" enctype="multipart/form-data">
+        Quiz Title: <input type="text" name="title" required/><br/><br/>
+        
+        Select Question File (.txt): 
+        <input type="file" name="questionFile" accept=".txt" required/><br/><br/>
+        
+        <input type="submit" value="Upload and Create Quiz"/>
+    </form>
+    
+    <c:if test="${not empty message}">
+        <p style="color: green;">${message}</p>
+    </c:if>
+</body>
+</html>

@@ -1,0 +1,40 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.util.List;
+
+import com.app.pojos.Question;
+
+public class QuestionDaoImp extends Dao implements QuestionDao {
+	private PreparedStatement stmtFindAll;
+	private PreparedStatement stmtFindById;
+	private PreparedStatement stmtSave;
+	
+	public QuestionDaoImp() throws Exception {
+		stmtFindAll = con.prepareStatement("SELECT question_id, quiz_id, question_text, option_a, option_b, option_c, option_d FROM questions");
+		stmtFindById = con.prepareStatement("SELECT question_text, option_a, option_b, option_c, option_d, correct_option FROM questions WHERE quiz_id = ?");
+		stmtSave = con.prepareStatement("INSERT INTO questions " + "(quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option)" + "VALUES (?, ?, ?, ?, ?, ?, ?)")
+	}
+	
+	
+	@Override
+	public List<Question> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Question findById(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int save(Question que) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+}

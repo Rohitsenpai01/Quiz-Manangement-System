@@ -1,0 +1,98 @@
+package com.app.daos;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.app.pojos.Question;
+
+public class QuestionDaoImp extends Dao implements QuestionDao {
+    private PreparedStatement stmtFindAll;
+    private PreparedStatement stmtFindByQuizId; // Renamed from stmtFindById for clarity
+
+    public QuestionDaoImp() throws Exception {
+        // con inherited from Dao
+        stmtFindAll = con.prepareStatement("SELECT id, quiz_id, text, a, b, c, d, correct FROM questions");
+        
+        // Corrected SQL: Questions are usually fetched by quiz_id to get a set for a quiz
+        stmtFindByQuizId = con.prepareStatement("SELECT id, quiz_id, text, a, b, c, d, correct FROM questions WHERE quiz_id = ?");
+    }
+
+    @Override
+    public List<Question> findAll() throws Exception {
+        List<Question> list = new ArrayList<>();
+        try (ResultSet rs = stmtFindAll.executeQuery()) {
+            while (rs.next()) {
+                list.add(mapResultSetToQuestion(rs)); // Added missing list.add() logic
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public Question findById(int id) throws Exception {
+        // Note: Your interface uses 'findById(int quiz_id)', but standard DAO 
+        // findById usually looks for the primary key (question id).
+        // If you need all questions for a quiz, use a List return type instead.
+        stmtFindByQuizId.setInt(1, id);
+        try (ResultSet rs = stmtFindByQuizId.executeQuery()) {
+            if (rs.next()) {
+                return mapResultSetToQuestion(rs);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public int save(Question que) throws Exception {
+        String sqlSave = "INSERT INTO questions (quiz_id, text, a, b, c, d, correct) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        // Using local PreparedStatement to handle Generated Keys specifically
+        try (PreparedStatement localStmtSave = con.prepareStatement(sqlSave, Statement.RETURN_GENERATED_KEYS)) {
+            localStmtSave.setInt(1, que.getQuiz_id());
+            localStmtSave.setString(2, que.getText());
+            localStmtSave.setString(3, que.getA());
+            localStmtSave.setString(4, que.getB());
+            localStmtSave.setString(5, que.getC());
+            localStmtSave.setString(6, que.getD());
+            localStmtSave.setString(7, String.valueOf(que.getCorrect()));
+
+            int affectedRows = localStmtSave.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new Exception("Inserting question failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = localStmtSave.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1); // Return the newly created question ID
+                } else {
+                    throw new Exception("Inserting question failed, no ID obtained.");
+                }
+            }
+        }
+    }
+
+    // Helper method to fix the naming mismatches and duplication found in original code
+    private Question mapResultSetToQuestion(ResultSet rs) throws Exception {
+        int id = rs.getInt("id");
+        int quiz_id = rs.getInt("quiz_id");
+        String text = rs.getString("text");
+        String a = rs.getString("a");
+        String b = rs.getString("b");
+        String c = rs.getString("c");
+        String d = rs.getString("d");
+        char correct = rs.getString("correct").charAt(0);
+        
+        return new Question(id, quiz_id, text, a, b, c, d, correct);
+    }
+
+    @Override
+    public void close() throws Exception {
+        if (stmtFindAll != null) stmtFindAll.close();
+        if (stmtFindByQuizId != null) stmtFindByQuizId.close();
+        super.close();
+    }
+}

@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body bgcolor="${initParam.theme}">
+	<h1 style="text-align: center;">${initParam.appTitle}</h1><hr><br>
+	<jsp:useBean id="vr" class="com.app.beans.AttemptQuizBean"/>
+	${vr.viewresult()}
+	<div style="text-align: center;">
+		<table border="1" align="center">
+			<thead>
+				<tr>
+					<th>Attempt ID</th>
+					<th>Quiz ID</th>
+					<th>Student ID</th>
+					<th>Score</th>
+					<th>Total Questions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="at" items="${vr.attemptList }">
+					<tr>
+						<td>${at.attempt_id}</td>
+						<td>${at.quiz_id}</td>
+						<td>${at.user_id}</td>
+						<td>${at.final_score}</td>
+						<td>${at.total_questions}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
